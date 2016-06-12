@@ -1,3 +1,8 @@
+/**
+ * 测试环境
+ * 配置config.js修改测试目录
+ * gulp --gulpfile test.js
+ */
 var gulp = require('gulp');
 
 // 合并文件
@@ -25,13 +30,19 @@ var cleanCSS = require('gulp-clean-css');
 // Html内容替换
 var htmlreplace = require('gulp-html-replace');
 
-// 浏览器自动刷新,调试工具
+// 浏览器调试
 var browserSync = require('browser-sync').create();
 
-// 配置信息
-var config = {
-  dist: './dist',
-  rev: {}
+// 配置文件
+var config = require('./config').test;
+
+// 临时数据
+var temp = {};
+
+// 获取rev的路径字符串
+function getRevPathStr(name) {
+  var path = temp[name];
+  return path.basename + '.min' + path.extname;
 }
 
 // 清空发布目录
@@ -41,7 +52,9 @@ gulp.task('clean', function () {
     ], {
       read: false
     })
-    .pipe(clean({}));
+    .pipe(clean({
+      force: true
+    }));
 });
 
 // CSS
@@ -52,14 +65,14 @@ gulp.task('clean', function () {
 gulp.task('assets:js', function () {
   return gulp
     .src([
-      './public/assets/**/*.module.js', // module
-      './public/assets/**/*.provider.js', // provider
-      './public/assets/**/*.directive.js', // directive
-      './public/assets/**/*.factory.js', // factory
-      './public/assets/**/*.service.js', // service
-      './public/assets/**/*.controller.js', // controller
-      './public/assets/**/*.config.js', // config
-      './public/assets/**/*.router.js' // router
+      '../public/assets/**/*.module.js', // module
+      '../public/assets/**/*.provider.js', // provider
+      '../public/assets/**/*.directive.js', // directive
+      '../public/assets/**/*.factory.js', // factory
+      '../public/assets/**/*.service.js', // service
+      '../public/assets/**/*.controller.js', // controller
+      '../public/assets/**/*.config.js', // config
+      '../public/assets/**/*.router.js' // router
     ])
     // js验证
     .pipe(jshint())
@@ -70,7 +83,7 @@ gulp.task('assets:js', function () {
     .pipe(rev())
     // 记录文件信息
     .pipe(rename(function (path) {
-      config.rev['assets:js'] = path;
+      temp['assets:js'] = path;
     }))
     // angular注解
     .pipe(ngAnnotate())
@@ -94,8 +107,8 @@ gulp.task('assets:js', function () {
 gulp.task('app:js', function () {
   return gulp
     .src([
-      './public/app/**/*.module.js', // module
-      './public/app/**/*.router.js' // router
+      '../public/app/**/*.module.js', // module
+      '../public/app/**/*.router.js' // router
     ])
     // js验证
     .pipe(jshint())
@@ -106,7 +119,7 @@ gulp.task('app:js', function () {
     .pipe(rev())
     // 记录文件信息
     .pipe(rename(function (path) {
-      config.rev['app:js'] = path;
+      temp['app:js'] = path;
     }))
     // angular注解
     .pipe(ngAnnotate())
@@ -130,38 +143,58 @@ gulp.task('app:js', function () {
 // Html
 
 
+//////////////////////////////////
+///////////  发布  ///////////////
+//////////////////////////////////
 // index.html
 gulp.task('index', ['assets:js', 'app:js'], function () {
-  return gulp.src('./index-tpl.html')
+  return gulp.src('../public/index.html')
     .pipe(htmlreplace({
       'css': [
-        './bower_components/bootstrap/dist/css/bootstrap.min.css',
-        './bower_components/font-awesome/css/font-awesome.min.css',
-        './bower_components/simple-line-icons/css/simple-line-icons.css'
+
+        'bower_components/bootstrap/dist/css/bootstrap.min.css',
+        'bower_components/font-awesome/css/font-awesome.min.css',
+        'bower_components/simple-line-icons/css/simple-line-icons.css'
       ],
       'js': [
-        './bower_components/jquery/dist/jquery.min.js',
-        './bower_components/bootstrap/dist/js/bootstrap.min.js',
-        './bower_components/angular/angular.min.js',
-        './bower_components/oclazyload/dist/ocLazyLoad.min.js',
-        './bower_components/angular-ui-router/release/angular-ui-router.min.js',
+
+        // 必备
+        'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/bootstrap/dist/js/bootstrap.min.js',
+        'bower_components/angular/angular.min.js',
+        'bower_components/oclazyload/dist/ocLazyLoad.min.js',
+        'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+
+        // 扩展
+        'bower_components/angular-sanitize/angular-sanitize.min.js',
+        'bower_components/angular-animate/angular-animate.min.js',
+        'bower_components/angular-cookies/angular-cookies.min.js',
+        'bower_components/angular-resource/angular-resource.min.js',
+        'bower_components/angular-touch/angular-touch.min.js',
+        'bower_components/ngstorage/ngStorage.min.js',
+
+        // 应用
         getRevPathStr('assets:js'), // 组件
         getRevPathStr('app:js') // app
       ]
     }))
-    .pipe(rename(function (path) {
-      path.basename = "index";
-    }))
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest(config.dist));
 })
 
-// 获取rev的路径字符串
-function getRevPathStr(name) {
-  var path = config.rev[name];
-  return path.basename + path.extname;
-}
+// 
+gulp.task('default', ['clean'], function () {
+  // 浏览器调试
+  browserSync.init({
+    port: config.port, // 端口
+    server: {
+      baseDir: [config.dist], // 主目录
+      index: "index.html", // 主页
+      routes: { // 路由
+        "/bower_components": "../bower_components",
+        '/favicon.ico': '../favicon.ico'
+      }
+    }
+  });
 
-// 发布
-gulp.task('publish', ['clean'], function () {
   return gulp.start('index');
 })
