@@ -1,0 +1,7 @@
+/node_modules
+/bower_components
+/mochawesome-reports
+/uploads
+/logs
+/mstp_111_angulr
+/dist
