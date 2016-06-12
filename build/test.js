@@ -1,7 +1,7 @@
 /**
- * 发布环境,使用公网资源,如果使用内网资源,请参考test.js
+ * 测试环境,使用本地资源,如果发布环境为外网,建议使用publish.js
  * 配置config.js修改发布目录
- * gulp --gulpfile publish.js
+ * gulp --gulpfile test.js
  */
 var gulp = require('gulp');
 
