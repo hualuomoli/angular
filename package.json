@@ -24,7 +24,6 @@
   "homepage": "https://github.com/hualuomoli/angular#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
-    "colors": "^1.1.2",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "log4js": "^0.6.33",
@@ -33,9 +32,21 @@
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.4",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-replace": "^1.5.5",
+    "gulp-jshint": "^2.0.0",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^7.0.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
     "mochawesome": "^1.3.3",
     "request": "^2.72.0",
-    "should": "^9.0.0",
+    "should": "^9.0.2",
     "supertest": "^1.2.0"
   }
 }
