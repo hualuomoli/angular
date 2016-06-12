@@ -77,8 +77,7 @@ gulp.task('assets:js', function () {
       '../public/assets/**/*.module.js', // module
       '../public/assets/**/*.provider.js', // provider
       '../public/assets/**/*.factory.js', // factory
-      '../public/assets/**/*.directive.js', // directive
-      '../public/assets/**/*.interceptor.js', // interceptor
+      '../public/assets/**/*.directive.js' // directive
     ])
     // js验证
     .pipe(jshint())
@@ -114,6 +113,7 @@ gulp.task('app:js', function () {
   return gulp.src([
       '../public/app/**/*.module.js', // module
       '../public/app/**/*.router.js', // router
+      '../public/app/**/*.interceptor.js', // interceptor
       '../public/app/app.config.js' // config
     ])
     // js验证
