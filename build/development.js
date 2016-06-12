@@ -90,9 +90,7 @@ function addDependency(array, type, name) {
 
 // 清空发布目录
 gulp.task('clean', function () {
-  return gulp.src([
-      config.dist
-    ], {
+  return gulp.src([config.dist], {
       read: false
     })
     .pipe(clean({
@@ -102,9 +100,7 @@ gulp.task('clean', function () {
 
 // CSS
 gulp.task('css', function () {
-  return gulp.src([
-      '../public/**/*.css'
-    ], {
+  return gulp.src(['../public/css/**/*'], {
       base: '../public'
     })
     .pipe(gulp.dest(config.dist));
@@ -113,9 +109,7 @@ gulp.task('css', function () {
 // JS
 gulp.task('js', function () {
   return gulp
-    .src([
-      '../public/**/*.js'
-    ], {
+    .src(['../public/assets/**/*', '../public/app/**/*'], {
       base: '../public'
     })
     // js验证
@@ -132,11 +126,7 @@ gulp.task('js', function () {
 // image
 gulp.task('image', function () {
   return gulp
-    .src([
-      '../public/**/*.jpg',
-      '../public/**/*.gif',
-      '../public/**/*.png'
-    ], {
+    .src(['../public/image/**/*'], {
       base: '../public'
     })
     // 输出文件
@@ -146,10 +136,7 @@ gulp.task('image', function () {
 // Html
 gulp.task('html', function () {
   return gulp
-    .src([
-      '../public/**/*.html',
-      '../public/**/*.htm'
-    ], {
+    .src(['../public/tpl/**/*'], {
       base: '../public'
     })
     // 输出文件

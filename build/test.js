@@ -1,7 +1,7 @@
 /**
- * 测试环境
- * 配置config.js修改测试目录
- * gulp --gulpfile test.js
+ * 发布环境,使用公网资源,如果使用内网资源,请参考test.js
+ * 配置config.js修改发布目录
+ * gulp --gulpfile publish.js
  */
 var gulp = require('gulp');
 
@@ -30,11 +30,11 @@ var cleanCSS = require('gulp-clean-css');
 // Html内容替换
 var htmlreplace = require('gulp-html-replace');
 
-// 浏览器调试
-var browserSync = require('browser-sync').create();
-
 // 配置文件
 var config = require('./config').test;
+
+// 浏览器调试
+var browserSync = require('browser-sync').create();
 
 // 临时数据
 var temp = {};
@@ -47,9 +47,7 @@ function getRevPathStr(name) {
 
 // 清空发布目录
 gulp.task('clean', function () {
-  return gulp.src([
-      config.dist
-    ], {
+  return gulp.src([config.dist], {
       read: false
     })
     .pipe(clean({
@@ -58,21 +56,32 @@ gulp.task('clean', function () {
 });
 
 // CSS
-
+gulp.task('css', function () {
+  return gulp.src(['../public/css/**/*'], {
+      base: '../public'
+    })
+    // sourcemaps开始
+    .pipe(sourcemaps.init())
+    // 压缩
+    .pipe(cleanCSS())
+    // 重命名 .min
+    .pipe(rename(function (path) {
+      path.basename += ".min";
+    }))
+    // sourcemaps结束
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(config.dist));
+})
 
 // JS
 // 1、组件 assets
 gulp.task('assets:js', function () {
-  return gulp
-    .src([
+  return gulp.src([
       '../public/assets/**/*.module.js', // module
       '../public/assets/**/*.provider.js', // provider
-      '../public/assets/**/*.directive.js', // directive
       '../public/assets/**/*.factory.js', // factory
-      '../public/assets/**/*.service.js', // service
-      '../public/assets/**/*.controller.js', // controller
-      '../public/assets/**/*.config.js', // config
-      '../public/assets/**/*.router.js' // router
+      '../public/assets/**/*.directive.js', // directive
+      '../public/assets/**/*.interceptor.js', // interceptor
     ])
     // js验证
     .pipe(jshint())
@@ -105,10 +114,10 @@ gulp.task('assets:js', function () {
 
 // 2、angular 模块和路由
 gulp.task('app:js', function () {
-  return gulp
-    .src([
+  return gulp.src([
       '../public/app/**/*.module.js', // module
-      '../public/app/**/*.router.js' // router
+      '../public/app/**/*.router.js', // router
+      '../public/app/app.config.js' // config
     ])
     // js验证
     .pipe(jshint())
@@ -139,19 +148,32 @@ gulp.task('app:js', function () {
     .pipe(gulp.dest(config.dist));
 })
 
+// image
+gulp.task('image', function () {
+  return gulp
+    .src(['../public/image/**/*'], {
+      base: '../public'
+    })
+    // 输出文件
+    .pipe(gulp.dest(config.dist));
+});
+
 
 // Html
+gulp.task('html', function () {
+  return gulp
+    .src(['../public/tpl/**/*'], {
+      base: '../public'
+    })
+    // 输出文件
+    .pipe(gulp.dest(config.dist));
+});
 
-
-//////////////////////////////////
-///////////  发布  ///////////////
-//////////////////////////////////
 // index.html
-gulp.task('index', ['assets:js', 'app:js'], function () {
+gulp.task('index', ['css', 'assets:js', 'app:js', 'image', 'html'], function () {
   return gulp.src('../public/index.html')
     .pipe(htmlreplace({
       'css': [
-
         'bower_components/bootstrap/dist/css/bootstrap.min.css',
         'bower_components/font-awesome/css/font-awesome.min.css',
         'bower_components/simple-line-icons/css/simple-line-icons.css'
@@ -183,7 +205,7 @@ gulp.task('index', ['assets:js', 'app:js'], function () {
 
 // 
 gulp.task('default', ['clean'], function () {
-  // 浏览器调试
+
   browserSync.init({
     port: config.port, // 端口
     server: {

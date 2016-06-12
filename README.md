@@ -1,6 +1,22 @@
 # angular
 angular
 
+# 目录结构
+> public 前端文件(css/js/image/html)
+> build 前端构建工具
+> assets 后端资源库文件
+> routes 后端路由文件
+> test 后端测试文件
+ 
+## 自动生成目录
+> bower_components 前端依赖文件
+> dist 前端发布目录
+> node_modules nodejs依赖文件
+> mochawesome-reports 后端测试报告
+> logs 后端日志
+> uploads 后端保存上传文件
+
+
 # 后端依赖
 
 ## 必备
