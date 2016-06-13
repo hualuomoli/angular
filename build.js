@@ -5,17 +5,18 @@ var build = {};
 var angularFiles = {
   module: [],
   provider: [],
-  directive: [],
   factory: [],
+  directive: [],
   interceptor: [],
   service: [],
   controller: [],
   config: [],
-  router: []
+  router: [],
+  rev: []
 }
 
 // 临时文件
-var tempFiles = {};
+var temp = {};
 
 /**
  * 获取path的字符串路径
@@ -37,10 +38,14 @@ function add(path) {
   var basename = path.basename;
 
   // 获取basename的种类 user.config.js --> config
-  if (basename.lastIndexOf('.') === -1) {
+  var name = '';
+  if (basename.lastIndexOf('.') !== -1) {
+    name = basename.substr(basename.lastIndexOf('.') + 1);
+  } else if (basename.lastIndexOf('-') !== -1) {
+    name = 'rev';
+  } else {
     throw new Error('can not support file ' + path);
   }
-  var name = basename.substr(basename.lastIndexOf('.') + 1);
 
   var array = angularFiles[name];
   array[array.length] = path;
@@ -89,10 +94,24 @@ function pushArray(dest, src) {
   return dest;
 }
 
+/**
+ * Objetct加另一个Objetct
+ * @param dest 目标
+ * @param src  需要添加的数据
+ * @return     新目标
+ */
+function put(dest, src) {
+  for (var key in src) {
+    dest[key] = src[key];
+  }
+  return dest;
+}
+
 build.add = add;
 build.toArray = toArray;
 build.toString = toString;
-build.tempFiles = tempFiles;
+build.temp = temp;
 build.pushArray = pushArray;
+build.put = put;
 
 module.exports = build;

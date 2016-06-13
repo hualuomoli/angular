@@ -10,6 +10,10 @@ var rev = require('gulp-rev');
 var rename = require("gulp-rename");
 // 文件的原信息
 var sourcemaps = require('gulp-sourcemaps');
+// 判断环境
+var gulpif = require('gulp-if');
+// 获取输入参数
+var minimist = require('minimist');
 
 // JS验证
 var jshint = require('gulp-jshint');
@@ -30,12 +34,22 @@ var browserSync = require('browser-sync').create();
 // 配置文件
 var build = require('./build');
 
-// 发布目录
-var dist = './dist';
+// 默认参数,gulp --dist ./dist --min --concat --network --watch
+var options = {
+  dist: './dist',
+  min: false, // 是否压缩
+  concat: false, // 是否合并文件,如果合并,对文件hash
+  network: false, // 是否从互联网下载资源
+  watch: false // 监控文件变化
+}
 
-// 清空发布目录
+options = build.put(options, minimist(process.argv.slice(2)));
+
+console.log(options);
+
+// clean
 gulp.task('clean', function () {
-  return gulp.src(dist, {
+  return gulp.src(options.dist, {
       read: false
     })
     .pipe(clean({
@@ -43,296 +57,246 @@ gulp.task('clean', function () {
     }));
 });
 
-/**
- * Assets JS 组件压缩
- */
-gulp.task('jsAssetsMin', function () {
+// assets
+gulp.task('jsAssets', function () {
   return gulp.src([
       './public/assets/**/*.module.js', // module
       './public/assets/**/*.provider.js', // provider
       './public/assets/**/*.factory.js', // factory
       './public/assets/**/*.directive.js' // directive
-    ])
-    // js验证
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    // 合并成一个文件
-    .pipe(concat('assets.js'))
-    // 哈希
-    .pipe(rev())
-    // 记录文件信息
-    .pipe(rename(function (path) {
-      build.tempFiles.jsAssetsMin = build.toString(path);
-    }))
-    // angular注解
-    .pipe(ngAnnotate())
-    // 保存源码
-    .pipe(gulp.dest(dist))
-    // sourcemaps开始
-    .pipe(sourcemaps.init())
-    // 压缩
-    .pipe(uglify())
-    // 重命名 .min
-    .pipe(rename(function (path) {
-      path.basename += ".min";
-    }))
-    // sourcemaps结束
-    .pipe(sourcemaps.write('.'))
-    // 输出压缩文件
-    .pipe(gulp.dest(dist));
-});
-
-/**
- * App JS 复制
- */
-gulp.task('jsAppCopy', function () {
-  return gulp.src([
-      './public/app/**/*.module.js', // module
-      './public/app/**/*.interceptor.js', // interceptor
-      './public/app/**/*.router.js', // router
-      './public/app/**/*.service.js', // service
-      './public/app/**/*.controller.js', // controller
-      './public/app/app.config.js', // config
-      './public/app/app.lazyload.config.js' // lazyLoad
     ], {
       base: './public'
     })
     // js验证
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    // 记录文件类型
+    // 合并成一个文件
+    .pipe(gulpif(options.concat, concat('assets.js')))
+    // 哈希
+    .pipe(gulpif(options.concat, rev()))
+    // 记录文件信息
     .pipe(rename(function (path) {
-      build.add(path); // 添加到js缓存
+      build.add(path);
     }))
-    // 输出文件
-    .pipe(gulp.dest(dist));
-});
+    // angular注解
+    .pipe(ngAnnotate())
+    // sourcemaps开始
+    .pipe(sourcemaps.init())
+    // 压缩
+    .pipe(gulpif(options.min, uglify()))
+    // sourcemaps结束
+    .pipe(sourcemaps.write('.'))
+    // 输出压缩文件
+    .pipe(gulp.dest(options.dist));
+})
 
-/**
- * App资源压缩
- */
-gulp.task('jsAppMin', ['jsAppMinCopy'], function () {
-  // 压缩 module,router,interceptor,lazyload和app.config.js
+// app
+gulp.task('jsApp', function () {
+  var ignore;
+  if (options.network) {
+    ignore = '!./public/app/app.lazyload.config.js';
+  } else {
+    ignore = '!./public/app/app.network.lazyload.config.js';
+  }
   return gulp.src([
+      // ocLazyLoad
+      ignore,
       './public/app/**/*.module.js', // module
       './public/app/**/*.interceptor.js', // interceptor
       './public/app/**/*.router.js', // router
-      // ocLazyLoad
-      './public/app/app.lazyload.config.js',
-      './public/app/app.config.js' // config
-    ])
+      './public/app/**/*.config.js', // config
+    ], {
+      base: './public'
+    })
     // js验证
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     // 合并成一个文件
-    .pipe(concat('app.js'))
+    .pipe(gulpif(options.concat, concat('app.js')))
     // 哈希
-    .pipe(rev())
+    .pipe(gulpif(options.concat, rev()))
     // 记录文件信息
     .pipe(rename(function (path) {
-      build.tempFiles.jsAppMin = build.toString(path);
+      build.add(path);
     }))
     // angular注解
     .pipe(ngAnnotate())
-    // 保存源码
-    .pipe(gulp.dest(dist))
     // sourcemaps开始
     .pipe(sourcemaps.init())
     // 压缩
-    .pipe(uglify())
-    // 重命名 .min
-    .pipe(rename(function (path) {
-      path.basename += ".min";
-    }))
+    .pipe(gulpif(options.min, uglify()))
     // sourcemaps结束
     .pipe(sourcemaps.write('.'))
     // 输出压缩文件
-    .pipe(gulp.dest(dist));
-});
+    .pipe(gulp.dest(options.dist));
+})
 
-/**
- * App资源压缩
- */
-gulp.task('jsAppMinPublish', ['jsAppMinCopy'], function () {
-  // 压缩 module,router,interceptor,lazyload和app.config.js
-  return gulp.src([
-      './public/app/**/*.module.js', // module
-      './public/app/**/*.interceptor.js', // interceptor
-      './public/app/**/*.router.js', // router
-      // ocLazyLoad
-      './public/app/app.network.lazyload.config.js',
-      './public/app/app.config.js' // config
-    ])
-    // js验证
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    // 合并成一个文件
-    .pipe(concat('app.js'))
-    // 哈希
-    .pipe(rev())
-    // 记录文件信息
-    .pipe(rename(function (path) {
-      build.tempFiles.jsAppMinPublish = build.toString(path);
-    }))
-    // angular注解
-    .pipe(ngAnnotate())
-    // 保存源码
-    .pipe(gulp.dest(dist))
-    // sourcemaps开始
-    .pipe(sourcemaps.init())
-    // 压缩
-    .pipe(uglify())
-    // 重命名 .min
-    .pipe(rename(function (path) {
-      path.basename += ".min";
-    }))
-    // sourcemaps结束
-    .pipe(sourcemaps.write('.'))
-    // 输出压缩文件
-    .pipe(gulp.dest(dist));
-});
-
-/**
- * App资源压缩复制,懒加载
- */
-gulp.task('jsAppMinCopy', function () {
-  // 复制 service,controller
+// app 懒加载
+gulp.task('jsAppLazy', function () {
   return gulp.src([
       './public/app/**/*.service.js', // service
       './public/app/**/*.controller.js' // controller
-    ])
+    ], {
+      base: './public'
+    })
     // js验证
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     // angular注解
     .pipe(ngAnnotate())
-    // 保存源码
-    .pipe(gulp.dest(dist))
     // sourcemaps开始
     .pipe(sourcemaps.init())
     // 压缩
-    .pipe(uglify())
-    // 重命名 .min
-    .pipe(rename(function (path) {
-      path.basename += ".min";
-    }))
+    .pipe(gulpif(options.min, uglify()))
     // sourcemaps结束
     .pipe(sourcemaps.write('.'))
     // 输出压缩文件
-    .pipe(gulp.dest(dist));
-});
+    .pipe(gulp.dest(options.dist));
+})
 
-/**
- * CSS复制
- */
-gulp.task('cssCopy', function () {
-  return gulp.src('./public/css/**/*', {
-      base: './public'
-    })
-    .pipe(gulp.dest(dist));
-});
-
-/**
- * CSS压缩
- */
-gulp.task('cssMin', function () {
-  return gulp.src('./public/css/**/*', {
+// css
+gulp.task('css', function () {
+  return gulp.src(['./public/css/**/*'], {
       base: './public'
     })
     // sourcemaps开始
     .pipe(sourcemaps.init())
     // 压缩
-    .pipe(cleanCSS())
-    // 重命名 .min
-    .pipe(rename(function (path) {
-      path.basename += ".min";
-    }))
+    .pipe(gulpif(options.min, cleanCSS()))
     // sourcemaps结束
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(dist));
-});
+    .pipe(gulp.dest(options.dist));
+})
 
-/**
- * 图片复制
- */
-gulp.task('imageCopy', function () {
-  return gulp
-    .src(['./public/image/**/*'], {
+// image
+gulp.task('image', function () {
+  return gulp.src(['./public/image/**/*'], {
       base: './public'
     })
-    .pipe(gulp.dest(dist));
+    .pipe(gulp.dest(options.dist));
 });
 
-/**
- * 图片复制
- */
-gulp.task('imageMin', function () {
-  return gulp
-    .src(['./public/image/**/*'], {
+// tpl
+gulp.task('tpl', function () {
+  return gulp.src(['./public/tpl/**/*'], {
       base: './public'
     })
-    .pipe(gulp.dest(dist));
+    .pipe(gulp.dest(options.dist));
 });
 
-/**
- * Html片段复制
- */
-gulp.task('tplCopy', function () {
-  return gulp
-    .src(['./public/tpl/**/*'], {
-      base: './public'
-    })
-    .pipe(gulp.dest(dist));
-});
+// index
+gulp.task('index', ['jsAssets', 'jsApp', 'jsAppLazy', 'css', 'image', 'tpl'], function () {
 
-/**
- * Html片段复制
- */
-gulp.task('tplMin', function () {
-  return gulp
-    .src(['./public/tpl/**/*'], {
-      base: './public'
-    })
-    .pipe(gulp.dest(dist));
-});
+  // css
+  var cssArray;
+  // js
+  var jsArray;
 
-/**
- * 开发环境
- */
-gulp.task('indexDev', ['jsAssetsMin', 'jsAppCopy', 'cssCopy', 'imageCopy', 'tplCopy'], function () {
+  // 网络加载资源
+  if (options.network) {
+    // css
+    cssArray = [
+      // bootstrap
+      'http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css',
+      // 字体库
+      'http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css',
+      // 加载样式
+      'http://cdn.bootcss.com/simple-line-icons/2.3.1/css/simple-line-icons.min.css'
+    ];
+    // js
+    jsArray = [
+      // jquery
+      'http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js',
+      // bootstrap
+      'http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js',
+      // angular
+      'http://cdn.bootcss.com/angular.js/1.5.6/angular.min.js',
+      // ocLazyLoad
+      'http://cdn.bootcss.com/oclazyload/1.0.9/ocLazyLoad.min.js',
+      // angular-ui-router
+      'http://cdn.bootcss.com/angular-ui-router/0.3.1/angular-ui-router.min.js',
+      // html转换
+      'http://cdn.bootcss.com/angular.js/1.5.6/angular-sanitize.min.js',
+      // 动画
+      'http://cdn.bootcss.com/angular.js/1.5.6/angular-animate.min.js',
+      // cookie
+      'http://cdn.bootcss.com/angular.js/1.5.6/angular-cookies.min.js',
+      // 资源加载
+      'http://cdn.bootcss.com/angular.js/1.5.6/angular-resource.min.js',
+      // 触屏
+      'http://cdn.bootcss.com/angular.js/1.5.6/angular-touch.min.js',
+      // 本地存储
+      'http://cdn.bootcss.com/ngStorage/0.3.10/ngStorage.min.js'
+    ];
+  } else {
+    // css
+    cssArray = [
+      // bootstrap
+      'bower_components/bootstrap/dist/css/bootstrap.min.css',
+      // 字体库
+      'bower_components/font-awesome/css/font-awesome.min.css',
+      // 加载样式
+      'bower_components/simple-line-icons/css/simple-line-icons.css'
+    ];
+    // js
+    jsArray = [
+      // jquery
+      'bower_components/jquery/dist/jquery.min.js',
+      // bootstrap
+      'bower_components/bootstrap/dist/js/bootstrap.min.js',
+      // angular
+      'bower_components/angular/angular.min.js',
+      // ocLazyLoad
+      'bower_components/oclazyload/dist/ocLazyLoad.min.js',
+      // angular-ui-router
+      'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+      // html转换
+      'bower_components/angular-sanitize/angular-sanitize.min.js',
+      // 动画
+      'bower_components/angular-animate/angular-animate.min.js',
+      // cookie
+      'bower_components/angular-cookies/angular-cookies.min.js',
+      // 资源加载
+      'bower_components/angular-resource/angular-resource.min.js',
+      // 触屏
+      'bower_components/angular-touch/angular-touch.min.js',
+      // 本地存储
+      'bower_components/ngstorage/ngStorage.min.js'
+    ];
+  }
 
-  var jsArray = build.pushArray([
-    // 必备
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/angular/angular.min.js',
-    'bower_components/oclazyload/dist/ocLazyLoad.min.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'app/app.lazyload.config.js',
-    'app/app.config.js'
-  ], build.toArray([
+  // app
+  var appArray = build.toArray([
     'module',
+    'provider',
+    'factory',
+    'directive',
     'interceptor',
-    'router'
-  ]));
-
+    'config',
+    'router',
+    'rev',
+  ]);
 
   return gulp.src('./public/index.html', {
       base: 'public'
     })
     .pipe(htmlreplace({
-      'js': jsArray
+      'css': cssArray,
+      'js': jsArray,
+      'app': appArray
     }))
-    .pipe(gulp.dest(dist));
+    .pipe(gulp.dest(options.dist));
 
+})
 
-});
+// watch
+gulp.task('watch', ['index'], function () {
 
-gulp.task('development', ['indexDev'], function () {
-
+  // 浏览器调试工具
   browserSync.init({
     port: 3000, // 端口
     server: {
-      baseDir: [dist], // 主目录
+      baseDir: [options.dist], // 主目录
       index: "index.html", // 主页
       routes: { // 路由
         "/bower_components": "./bower_components",
@@ -341,70 +305,16 @@ gulp.task('development', ['indexDev'], function () {
     }
   });
 
-  // 文件改变时重新加载
-  gulp.watch('../public/**/*', ['indexDev']).on('change', browserSync.reload);
+  return gulp.watch('./public/**/*', ['index']).on('change', browserSync.reload);
 
-});
-
-
-/**
- * 测试环境
- */
-gulp.task('test', ['jsAssetsMin', 'jsAppMin', 'cssMin', 'imageMin', 'tplMin'], function () {
-
-  gulp.src('./public/index.html', {
-      base: 'public'
-    })
-    .pipe(htmlreplace({
-      'js': [
-        'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/angular/angular.min.js',
-        'bower_components/oclazyload/dist/ocLazyLoad.min.js',
-        'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-        build.tempFiles.jsAssetsMin, // assets
-        build.tempFiles.jsAppMin, // app
-      ]
-    }))
-    .pipe(gulp.dest(dist));
-
-  browserSync.init({
-    port: 3000, // 端口
-    server: {
-      baseDir: [dist], // 主目录
-      index: "index.html", // 主页
-      routes: { // 路由
-        "/bower_components": "./bower_components",
-        '/favicon.ico': './favicon.ico'
-      }
-    }
-  });
+})
 
 
-});
-
-
-/**
- * 生产环境
- */
-gulp.task('publish', ['jsAssetsMin', 'jsAppMinPublish', 'cssMin', 'imageMin', 'tplMin'], function () {
-  gulp.src('./public/index.html', {
-      base: 'public'
-    })
-    .pipe(htmlreplace({
-      'js': [
-        'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/angular/angular.min.js',
-        'bower_components/oclazyload/dist/ocLazyLoad.min.js',
-        'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-        build.tempFiles.jsAssetsMin, // assets
-        build.tempFiles.jsAppMinPublish, // app
-      ]
-    }))
-    .pipe(gulp.dest(dist));
-
-});
-
-
+// 默认任务
 gulp.task('default', ['clean'], function () {
-  return gulp.start('publish');
+  if (options.watch) {
+    gulp.start('watch');
+  } else {
+    gulp.start('index');
+  }
 })
