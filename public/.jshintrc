@@ -1,12 +1,15 @@
 {
   "predef": [
     "angular",
+    "window",
     "document",
+    "navigator",
     "console",
     "$"
   ],
   "strict": false,
   "undef": true,
   "unused": false,
-  "asi": true
+  "asi": true,
+  "sub": true
 }

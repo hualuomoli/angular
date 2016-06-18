@@ -1,11 +1,10 @@
-(function () {
-  'use strict';
+(function() {
+	'use strict';
 
-  angular
-    .module('assets', [
-      'ui.router',
-      'oc.lazyload'
-
-    ])
+	angular
+		.module('assets', [
+			'assets.device',
+			'assets.uiLoad'
+		])
 
 })();

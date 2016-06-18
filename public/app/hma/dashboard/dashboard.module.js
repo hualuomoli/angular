@@ -2,12 +2,9 @@
 	'use strict';
 
 	angular
-		.module('app', [
+		.module('hma.dashboard', [
 			'ui.router',
 			'oc.lazyLoad',
-
-			// 项目
-			'hma'
 
 		])
 

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -14,9 +14,9 @@
     // app 跟路由,不能直接访问
     $stateProvider
       .state('app', {
-        abstract: true,
+        // abstract: true,
         url: '/app',
-        templateUrl: 'tpl/app.html'
+        templateUrl: 'tpl/hma/app.html'
       })
 
   }
