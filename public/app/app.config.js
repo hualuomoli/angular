@@ -1,15 +1,11 @@
 (function() {
   'use strict';
 
-  angular
+  var app = angular
     .module('app')
     .constant('defaultUrl', 'hma/dashboard-v1')
-    .constant('vendor', {
-      screenfull: [
-        'bower_components/screenfull/dist/screenfull.min.js'
-      ]
-    })
     .run(run)
+    // .config(appConfig)
     .config(config);
 
   // 运行时,绑定路由到跟scope下
@@ -18,6 +14,18 @@
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
   }
+
+  // /** @ngInject */
+  // function appConfig($controllerProvider, $compileProvider, $filterProvider, $provide) {
+  //   // lazy controller, directive and service
+  //   app.controller = $controllerProvider.register;
+  //   app.directive = $compileProvider.directive;
+  //   app.filter = $filterProvider.register;
+  //   app.factory = $provide.factory;
+  //   app.service = $provide.service;
+  //   app.constant = $provide.constant;
+  //   app.value = $provide.value;
+  // }
 
   /** @ngInject */
   function config($locationProvider, $httpProvider) {

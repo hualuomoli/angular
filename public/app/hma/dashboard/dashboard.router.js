@@ -12,11 +12,12 @@
       .state('hma.dashboard-v1', {
         url: '/dashboard-v1',
         templateUrl: 'tpl/hma/dashboard-v1.html',
+        controller: 'dashboardCtrl',
         resolve: {
           deps: ['$ocLazyLoad',
             function($ocLazyLoad) {
               return $ocLazyLoad.load([
-                // 'js/controllers/chart.js'
+                'app/hma/dashboard/dashboard.controller.js'
               ]);
             }
           ]

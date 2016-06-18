@@ -7,6 +7,7 @@
 
 	/** @ngInject */
 	function uiLoad($document, $q, $timeout) {
+		/* jshint validthis: true */
 		var loaded = [];
 		var promise = false;
 		var deferred = $q.defer();
@@ -56,7 +57,7 @@
 			loaded[src] = deferred;
 
 			return deferred.promise;
-		};
+		}
 
 		/**
 		 * Dynamically loads the given CSS file
@@ -85,7 +86,7 @@
 			loaded[href] = deferred;
 
 			return deferred.promise;
-		};
+		}
 	}
 
 })();

@@ -19,8 +19,8 @@
             function($ocLazyLoad) {
               return $ocLazyLoad.load([
                 'css/animate.css',
-                'css/app.css',
                 'css/font.css',
+                'css/app.css',
                 'app/hma/hma.controller.js'
               ]);
             }

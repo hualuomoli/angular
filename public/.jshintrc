@@ -11,5 +11,6 @@
   "undef": true,
   "unused": false,
   "asi": true,
-  "sub": true
+  "sub": true,
+  "expr": true
 }

@@ -34,13 +34,12 @@ var browserSync = require('browser-sync').create();
 // 配置文件
 var build = require('./build');
 
-// 默认参数,gulp --dist ./dist --min --concat --network --watch
+// 默认参数,gulp --dist ./dist --min--network --publish
 var options = {
   dist: './dist',
   min: false, // 是否压缩
-  concat: false, // 是否合并文件,如果合并,对文件hash
   network: false, // 是否从互联网下载资源
-  watch: false // 监控文件变化
+  publish: false // 是否是发布模式
 }
 
 options = build.put(options, minimist(process.argv.slice(2)));
@@ -48,7 +47,7 @@ options = build.put(options, minimist(process.argv.slice(2)));
 console.log(options);
 
 // clean
-gulp.task('clean', function () {
+gulp.task('clean', function() {
   return gulp.src(options.dist, {
       read: false
     })
@@ -58,12 +57,12 @@ gulp.task('clean', function () {
 });
 
 // assets
-gulp.task('jsAssets', function () {
+gulp.task('js:assets', function() {
   return gulp.src([
       './public/assets/**/*.module.js', // module
       './public/assets/**/*.provider.js', // provider
       './public/assets/**/*.factory.js', // factory
-      './public/assets/**/*.directive.js' // directive
+      './public/assets/**/*.service.js' // service
     ], {
       base: './public'
     })
@@ -71,11 +70,41 @@ gulp.task('jsAssets', function () {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     // 合并成一个文件
-    .pipe(gulpif(options.concat, concat('assets.js')))
+    .pipe(concat('assets.js'))
     // 哈希
-    .pipe(gulpif(options.concat, rev()))
+    .pipe(gulpif(options.publish, rev()))
     // 记录文件信息
-    .pipe(rename(function (path) {
+    .pipe(rename(function(path) {
+      build.add(path);
+    }))
+    // angular注解
+    .pipe(ngAnnotate())
+    // sourcemaps开始
+    .pipe(sourcemaps.init())
+    // 压缩
+    .pipe(gulpif(options.min, uglify()))
+    // sourcemaps结束
+    .pipe(sourcemaps.write('.'))
+    // 输出压缩文件
+    .pipe(gulp.dest(options.dist));
+})
+
+// hualuomoli - A
+gulp.task('js:hma', function() {
+  return gulp.src([
+      './public/hma/directives/**/*' // directives
+    ], {
+      base: './public'
+    })
+    // js验证
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+    // 合并成一个文件
+    .pipe(concat('hma.js'))
+    // 哈希
+    .pipe(gulpif(options.publish, rev()))
+    // 记录文件信息
+    .pipe(rename(function(path) {
       build.add(path);
     }))
     // angular注解
@@ -91,7 +120,7 @@ gulp.task('jsAssets', function () {
 })
 
 // app
-gulp.task('jsApp', function () {
+gulp.task('js:app', function() {
   var ignore;
   if (options.network) {
     ignore = '!./public/app/app.lazyload.config.js';
@@ -112,11 +141,11 @@ gulp.task('jsApp', function () {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     // 合并成一个文件
-    .pipe(gulpif(options.concat, concat('app.js')))
+    .pipe(concat('app.js'))
     // 哈希
-    .pipe(gulpif(options.concat, rev()))
+    .pipe(gulpif(options.publish, rev()))
     // 记录文件信息
-    .pipe(rename(function (path) {
+    .pipe(rename(function(path) {
       build.add(path);
     }))
     // angular注解
@@ -132,7 +161,7 @@ gulp.task('jsApp', function () {
 })
 
 // app 懒加载
-gulp.task('jsAppLazy', function () {
+gulp.task('js:app:lazy', function() {
   return gulp.src([
       './public/app/**/*.service.js', // service
       './public/app/**/*.controller.js' // controller
@@ -154,8 +183,16 @@ gulp.task('jsAppLazy', function () {
     .pipe(gulp.dest(options.dist));
 })
 
+// fonts
+gulp.task('fonts', function() {
+  return gulp.src(['./public/fonts/**/*'], {
+      base: './public'
+    })
+    .pipe(gulp.dest(options.dist));
+})
+
 // css
-gulp.task('css', function () {
+gulp.task('css', ['fonts'], function() {
   return gulp.src(['./public/css/**/*'], {
       base: './public'
     })
@@ -169,15 +206,18 @@ gulp.task('css', function () {
 })
 
 // image
-gulp.task('image', function () {
-  return gulp.src(['./public/image/**/*'], {
+gulp.task('image', function() {
+  return gulp.src([
+      './public/image/**/*',
+      './public/img/**/*'
+    ], {
       base: './public'
     })
     .pipe(gulp.dest(options.dist));
 });
 
 // tpl
-gulp.task('tpl', function () {
+gulp.task('tpl', function() {
   return gulp.src(['./public/tpl/**/*'], {
       base: './public'
     })
@@ -185,7 +225,7 @@ gulp.task('tpl', function () {
 });
 
 // index
-gulp.task('index', ['jsAssets', 'jsApp', 'jsAppLazy', 'css', 'image', 'tpl'], function () {
+gulp.task('index', ['js:assets', 'js:hma', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image', 'tpl'], function() {
 
   // css
   var cssArray;
@@ -226,7 +266,8 @@ gulp.task('index', ['jsAssets', 'jsApp', 'jsAppLazy', 'css', 'image', 'tpl'], fu
       // 触屏
       'http://cdn.bootcss.com/angular.js/1.5.6/angular-touch.min.js',
       // 本地存储
-      'http://cdn.bootcss.com/ngStorage/0.3.10/ngStorage.min.js'
+      'http://cdn.bootcss.com/ngStorage/0.3.10/ngStorage.min.js',
+      'http://cdn.bootcss.com/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js'
     ];
   } else {
     // css
@@ -261,36 +302,34 @@ gulp.task('index', ['jsAssets', 'jsApp', 'jsAppLazy', 'css', 'image', 'tpl'], fu
       // 触屏
       'bower_components/angular-touch/angular-touch.min.js',
       // 本地存储
-      'bower_components/ngstorage/ngStorage.min.js'
+      'bower_components/ngstorage/ngStorage.min.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js'
     ];
   }
 
   // app
-  var appArray = build.toArray([
-    'module',
-    'provider',
-    'factory',
-    'directive',
-    'interceptor',
-    'config',
-    'router',
-    'rev',
-  ]);
+  var cssAppArray = [
+    // 'css/animate.css',
+    // 'css/app.css',
+    // 'css/font.css'
+  ];
+  var jsAppArray = build.files;
 
   return gulp.src('./public/index.html', {
       base: 'public'
     })
     .pipe(htmlreplace({
       'css': cssArray,
+      'css-app': cssAppArray,
       'js': jsArray,
-      'app': appArray
+      'js-app': jsAppArray
     }))
     .pipe(gulp.dest(options.dist));
 
 })
 
 // watch
-gulp.task('watch', ['index'], function () {
+gulp.task('watch', ['index'], function() {
 
   // 浏览器调试工具
   browserSync.init({
@@ -300,21 +339,54 @@ gulp.task('watch', ['index'], function () {
       index: "index.html", // 主页
       routes: { // 路由
         "/bower_components": "./bower_components",
+        "/vendor/jquery": "./vendor/jquery",
         '/favicon.ico': './favicon.ico'
       }
     }
   });
 
-  return gulp.watch('./public/**/*', ['index']).on('change', browserSync.reload);
+  // js - assets
+  gulp.watch([
+    './public/assets/**/*.module.js', // module
+    './public/assets/**/*.provider.js', // provider
+    './public/assets/**/*.factory.js', // factory
+    './public/assets/**/*.service.js' // service
+  ], ['js:assets']).on('change', browserSync.reload);
+  // js - hma
+  gulp.watch(['./public/hma/directives/**/*'], ['js:hma']).on('change', browserSync.reload);
+  // js - app
+  gulp.watch([
+    './public/app/**/*.module.js', // module
+    './public/app/**/*.interceptor.js', // interceptor
+    './public/app/**/*.router.js', // router
+    './public/app/**/*.config.js', // config
+    './public/app/app.lazyload.config.js',
+    './public/app/app.network.lazyload.config.js'
+  ], ['js:app']).on('change', browserSync.reload);
+  // js - app - lazy
+  gulp.watch([
+    './public/app/**/*.service.js', // service
+    './public/app/**/*.controller.js' // controller
+  ], ['js:app:lazy']).on('change', browserSync.reload);
+  // fonts
+  gulp.watch(['./public/fonts/**/*'], ['fonts']).on('change', browserSync.reload);
+  // css
+  gulp.watch(['./public/css/**/*'], ['css']).on('change', browserSync.reload);
+  // image
+  gulp.watch([
+    './public/image/**/*',
+    './public/img/**/*'
+  ], ['image']).on('change', browserSync.reload);
+  // tpl
+  gulp.watch(['./public/tpl/**/*'], ['tpl']).on('change', browserSync.reload);
 
 })
 
-
 // 默认任务
-gulp.task('default', ['clean'], function () {
-  if (options.watch) {
-    gulp.start('watch');
-  } else {
+gulp.task('default', ['clean'], function() {
+  if (options.publish) {
     gulp.start('index');
+  } else {
+    gulp.start('watch');
   }
 })
