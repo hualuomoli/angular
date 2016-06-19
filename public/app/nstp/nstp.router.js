@@ -2,26 +2,26 @@
   'use strict';
 
   angular
-    .module('hma')
+    .module('nstp')
     .config(router);
 
   /** @ngInject */
   function router($stateProvider) {
 
     $stateProvider
-      .state('hma', {
+      .state('nstp', {
         abstract: true,
-        url: '/hma',
-        templateUrl: 'tpl/hma/app.html',
-        controller: 'HmaAppCtrl',
+        url: '/nstp',
+        templateUrl: 'nstp/index.html',
+        controller: 'nstpCtrl',
         resolve: {
           deps: ['$ocLazyLoad',
             function($ocLazyLoad) {
               return $ocLazyLoad.load([
-                'css/animate.css',
-                'css/font.css',
-                'css/app.css',
-                'app/hma/hma.controller.js'
+                'nstp/css/animate.css',
+                'nstp/css/font.css',
+                'nstp/css/app.css',
+                'app/nstp/nstp.controller.js'
               ]);
             }
           ]

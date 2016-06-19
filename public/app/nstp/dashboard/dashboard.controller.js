@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular
-		.module('hma.dashboard')
-		.controller('dashboardCtrl', dashboardCtrl);
+		.module('nstp.dashboard')
+		.controller('dashboardNstpCtrl', dashboardNstpCtrl);
 
 	/** @ngInject */
-	function dashboardCtrl($scope) {
+	function dashboardNstpCtrl($scope) {
 		$scope.d = [
 			[1, 6.5],
 			[2, 6.5],

@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('hma.dashboard', [
+		.module('nstp.dashboard', [
 			'ui.router',
 			'oc.lazyLoad',
 

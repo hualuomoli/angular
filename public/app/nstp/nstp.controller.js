@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular
-		.module('hma')
-		.controller('HmaAppCtrl', HmaAppCtrl);
+		.module('nstp')
+		.controller('nstpCtrl', nstpCtrl);
 
 	/** @ngInject */
-	function HmaAppCtrl($scope, $localStorage, $http, $window, device) {
+	function nstpCtrl($scope, $localStorage, $http, $window, device) {
 
 		// add 'ie' classes to html
 		device.isIE() && angular.element($window.document.body).addClass('ie');

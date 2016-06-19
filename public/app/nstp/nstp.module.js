@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('hma', [
+		.module('nstp', [
 			'ui.router',
 			'oc.lazyLoad',
 
@@ -17,11 +17,11 @@
 
 			// 自定义组件
 			'assets',
-			'ui.jq',
-			'ui.validate',
+			// 'ui.jq',
+			// 'ui.validate',
 
 			// 业务
-			'hma.dashboard'
+			'nstp.dashboard'
 
 		])
 

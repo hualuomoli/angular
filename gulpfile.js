@@ -89,35 +89,35 @@ gulp.task('js:assets', function() {
     .pipe(gulp.dest(options.dist));
 })
 
-// hualuomoli - A
-gulp.task('js:hma', function() {
-  return gulp.src([
-      './public/hma/directives/**/*' // directives
-    ], {
-      base: './public'
-    })
-    // js验证
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    // 合并成一个文件
-    .pipe(concat('hma.js'))
-    // 哈希
-    .pipe(gulpif(options.publish, rev()))
-    // 记录文件信息
-    .pipe(rename(function(path) {
-      build.add(path);
-    }))
-    // angular注解
-    .pipe(ngAnnotate())
-    // sourcemaps开始
-    .pipe(sourcemaps.init())
-    // 压缩
-    .pipe(gulpif(options.min, uglify()))
-    // sourcemaps结束
-    .pipe(sourcemaps.write('.'))
-    // 输出压缩文件
-    .pipe(gulp.dest(options.dist));
-})
+// nstp
+// gulp.task('js:directives', function() {
+//   return gulp.src([
+//       './public/**/directives/**/*' // directives
+//     ], {
+//       base: './public'
+//     })
+//     // js验证
+//     .pipe(jshint())
+//     .pipe(jshint.reporter('default'))
+//     // 合并成一个文件
+//     .pipe(concat('nstp.js'))
+//     // 哈希
+//     .pipe(gulpif(options.publish, rev()))
+//     // 记录文件信息
+//     .pipe(rename(function(path) {
+//       build.add(path);
+//     }))
+//     // angular注解
+//     .pipe(ngAnnotate())
+//     // sourcemaps开始
+//     .pipe(sourcemaps.init())
+//     // 压缩
+//     .pipe(gulpif(options.min, uglify()))
+//     // sourcemaps结束
+//     .pipe(sourcemaps.write('.'))
+//     // 输出压缩文件
+//     .pipe(gulp.dest(options.dist));
+// })
 
 // app
 gulp.task('js:app', function() {
@@ -134,6 +134,7 @@ gulp.task('js:app', function() {
       './public/app/**/*.interceptor.js', // interceptor
       './public/app/**/*.router.js', // router
       './public/app/**/*.config.js', // config
+      './public/app/**/directives/**/*', // directives
     ], {
       base: './public'
     })
@@ -185,7 +186,7 @@ gulp.task('js:app:lazy', function() {
 
 // fonts
 gulp.task('fonts', function() {
-  return gulp.src(['./public/fonts/**/*'], {
+  return gulp.src(['./public/**/fonts/**/*'], {
       base: './public'
     })
     .pipe(gulp.dest(options.dist));
@@ -193,7 +194,7 @@ gulp.task('fonts', function() {
 
 // css
 gulp.task('css', ['fonts'], function() {
-  return gulp.src(['./public/css/**/*'], {
+  return gulp.src(['./public/**/css/**/*'], {
       base: './public'
     })
     // sourcemaps开始
@@ -208,8 +209,8 @@ gulp.task('css', ['fonts'], function() {
 // image
 gulp.task('image', function() {
   return gulp.src([
-      './public/image/**/*',
-      './public/img/**/*'
+      './public/**/image/**/*',
+      './public/**/img/**/*'
     ], {
       base: './public'
     })
@@ -218,14 +219,17 @@ gulp.task('image', function() {
 
 // tpl
 gulp.task('tpl', function() {
-  return gulp.src(['./public/tpl/**/*'], {
+  return gulp.src([
+      './public/**/index.html',
+      './public/**/tpl/**/*'
+    ], {
       base: './public'
     })
     .pipe(gulp.dest(options.dist));
 });
 
 // index
-gulp.task('index', ['js:assets', 'js:hma', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image', 'tpl'], function() {
+gulp.task('index', ['js:assets', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image', 'tpl'], function() {
 
   // css
   var cssArray;
@@ -307,12 +311,6 @@ gulp.task('index', ['js:assets', 'js:hma', 'js:app', 'js:app:lazy', 'fonts', 'cs
     ];
   }
 
-  // app
-  var cssAppArray = [
-    // 'css/animate.css',
-    // 'css/app.css',
-    // 'css/font.css'
-  ];
   var jsAppArray = build.files;
 
   return gulp.src('./public/index.html', {
@@ -320,7 +318,6 @@ gulp.task('index', ['js:assets', 'js:hma', 'js:app', 'js:app:lazy', 'fonts', 'cs
     })
     .pipe(htmlreplace({
       'css': cssArray,
-      'css-app': cssAppArray,
       'js': jsArray,
       'js-app': jsAppArray
     }))
@@ -346,22 +343,12 @@ gulp.task('watch', ['index'], function() {
   });
 
   // js - assets
-  gulp.watch([
-    './public/assets/**/*.module.js', // module
-    './public/assets/**/*.provider.js', // provider
-    './public/assets/**/*.factory.js', // factory
-    './public/assets/**/*.service.js' // service
-  ], ['js:assets']).on('change', browserSync.reload);
-  // js - hma
-  gulp.watch(['./public/hma/directives/**/*'], ['js:hma']).on('change', browserSync.reload);
+  gulp.watch(['./public/assets/**/*'], ['js:assets']).on('change', browserSync.reload);
   // js - app
   gulp.watch([
-    './public/app/**/*.module.js', // module
-    './public/app/**/*.interceptor.js', // interceptor
-    './public/app/**/*.router.js', // router
-    './public/app/**/*.config.js', // config
-    './public/app/app.lazyload.config.js',
-    './public/app/app.network.lazyload.config.js'
+    '!./public/app/**/*.service.js', // service
+    '!./public/app/**/*.controller.js', // controller
+    './public/app/**/*', // app
   ], ['js:app']).on('change', browserSync.reload);
   // js - app - lazy
   gulp.watch([
@@ -369,16 +356,19 @@ gulp.task('watch', ['index'], function() {
     './public/app/**/*.controller.js' // controller
   ], ['js:app:lazy']).on('change', browserSync.reload);
   // fonts
-  gulp.watch(['./public/fonts/**/*'], ['fonts']).on('change', browserSync.reload);
+  gulp.watch(['./public//**/fonts/**/*'], ['fonts']).on('change', browserSync.reload);
   // css
-  gulp.watch(['./public/css/**/*'], ['css']).on('change', browserSync.reload);
+  gulp.watch(['./public/**/css/**/*'], ['css']).on('change', browserSync.reload);
   // image
   gulp.watch([
-    './public/image/**/*',
-    './public/img/**/*'
+    './public/**/image/**/*',
+    './public/**/img/**/*'
   ], ['image']).on('change', browserSync.reload);
   // tpl
-  gulp.watch(['./public/tpl/**/*'], ['tpl']).on('change', browserSync.reload);
+  gulp.watch([
+    './public/**/index.html',
+    './public/**/tpl/**/*',
+  ], ['tpl']).on('change', browserSync.reload);
 
 })
 

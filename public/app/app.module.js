@@ -6,8 +6,10 @@
 			'ui.router',
 			'oc.lazyLoad',
 
+			'assets',
+
 			// 项目
-			'hma'
+			'nstp'
 
 		])
 

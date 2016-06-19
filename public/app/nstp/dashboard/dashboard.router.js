@@ -2,22 +2,22 @@
   'use strict';
 
   angular
-    .module('hma.dashboard')
+    .module('nstp.dashboard')
     .config(router);
 
   /** @ngInject */
   function router($stateProvider) {
 
     $stateProvider
-      .state('hma.dashboard-v1', {
+      .state('nstp.dashboard-v1', {
         url: '/dashboard-v1',
-        templateUrl: 'tpl/hma/dashboard-v1.html',
-        controller: 'dashboardCtrl',
+        templateUrl: 'nstp/tpl/app_dashboard_v1.html',
+        controller: 'dashboardNstpCtrl',
         resolve: {
           deps: ['$ocLazyLoad',
             function($ocLazyLoad) {
               return $ocLazyLoad.load([
-                'app/hma/dashboard/dashboard.controller.js'
+                'app/nstp/dashboard/dashboard.controller.js'
               ]);
             }
           ]
