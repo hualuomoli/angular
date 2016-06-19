@@ -7,7 +7,7 @@
   >
   <!-- column -->
   <div class="col item">
-    <div ui-jq="vectorMap" class="h-full" style="min-height:240px;" ui-options="{
+    <div nstp-ui-jq="vectorMap" class="h-full" style="min-height:240px;" ui-options="{
       map: 'us_aea_en',
       markers: {{usa_markers}},
       normalizeFunction: 'polynomial',
@@ -69,7 +69,7 @@
     <div class="top" style="top:20px;left:60px">
       <div class="panel no-border w-md">
         <div class="panel-heading ">
-          <a href class="pull-right" ng-click="isCollapsed = !isCollapsed" ui-toggle-class>
+          <a href class="pull-right" ng-click="isCollapsed = !isCollapsed" nstp-ui-toggle-class>
             <i class="fa fa-angle-up text"></i>
             <i class="fa fa-angle-down text-active"></i>
           </a>
@@ -77,7 +77,7 @@
         </div>
         <div collapse="isCollapsed">
           <div class="panel-body bg-light lter">
-            <div class="scrollable" style="max-height:110px" ui-jq="slimScroll" ui-options="{height:'110px', size:'6px'}">
+            <div class="scrollable" style="max-height:110px" nstp-ui-jq="slimScroll" ui-options="{height:'110px', size:'6px'}">
               <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. 
               </p>

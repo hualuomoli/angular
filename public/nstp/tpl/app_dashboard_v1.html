@@ -15,7 +15,7 @@
           <div class="inline m-r text-left">
             <div class="m-b-xs">1290 <span class="text-muted">items</span></div>
             <div ng-init="data1=[ 106,108,110,105,110,109,105,104,107,109,105,100,105,102,101,99,98 ]" 
-              ui-jq="sparkline" 
+              nstp-ui-jq="sparkline" 
               ui-options="{{data1}}, {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}" 
               class="sparkline inline">loading...
             </div>
@@ -23,7 +23,7 @@
           <div class="inline text-left">
             <div class="m-b-xs">$30,000 <span class="text-muted">revenue</span></div>
             <div ng-init="data2=[ 105,102,106,107,105,104,101,99,98,109,105,100,108,110,105,110,109 ]" 
-              ui-jq="sparkline" 
+              nstp-ui-jq="sparkline" 
               ui-options="{{data2}}, {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}" 
               class="sparkline inline">loading...
             </div>
@@ -76,7 +76,7 @@
             <div class="col-xs-12 m-b-md">
               <div class="r bg-light dker item hbox no-border">
                 <div class="col w-xs v-middle hidden-md">
-                  <div ng-init="data1=[60,40]" ui-jq="sparkline" ui-options="{{data1}}, {type:'pie', height:40, sliceColors:['{{app.color.warning}}','#fff']}" class="sparkline inline"></div>
+                  <div ng-init="data1=[60,40]" nstp-ui-jq="sparkline" ui-options="{{data1}}, {type:'pie', height:40, sliceColors:['{{app.color.warning}}','#fff']}" class="sparkline inline"></div>
                 </div>
                 <div class="col dk padder-v r-r">
                   <div class="text-primary-dk font-thin h1"><span>$12,670</span></div>
@@ -93,7 +93,7 @@
               <i></i>
             </label>
             <h4 class="font-thin m-t-none m-b text-muted">Latest Campaign</h4>
-            <div ui-jq="plot" ui-refresh="showSpline" ui-options="
+            <div nstp-ui-jq="plot" ui-refresh="showSpline" ui-options="
               [
                 { data: {{d0_1}}, label:'TV', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
                 { data: {{d0_2}}, label:'Mag', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } }
@@ -120,7 +120,7 @@
           <i class="fa fa-circle-o text-info m-r-sm pull-right"></i>
           <h4 class="font-thin m-t-none m-b-none text-primary-lt">Managed Services</h4>
           <span class="m-b block text-sm text-muted">Service report of this year (updated 1 hour ago)</span>
-          <div ui-jq="plot" ui-options="
+          <div nstp-ui-jq="plot" ui-options="
             [
               { data: {{d4}}, lines: { show: true, lineWidth: 1, fill:true, fillColor: { colors: [{opacity: 0.2}, {opacity: 0.8}] } } }
             ], 
@@ -188,7 +188,7 @@
           <div class="col-md-6">            
             <div class="row row-sm">
               <div class="col-xs-6 text-center">
-                <div ui-jq="easyPieChart" ui-options="{
+                <div nstp-ui-jq="easyPieChart" ui-options="{
                     percent: 75,
                     lineWidth: 4,
                     trackColor: '{{app.color.light}}',
@@ -205,7 +205,7 @@
                 <div class="text-muted font-bold text-xs m-t m-b">Work Done</div>
               </div>
               <div class="col-xs-6 text-center">
-                <div ui-jq="easyPieChart" ui-options="{
+                <div nstp-ui-jq="easyPieChart" ui-options="{
                     percent: 50,
                     lineWidth: 4,
                     trackColor: '{{app.color.light}}',
@@ -409,7 +409,7 @@
           <ul class="list-group no-borders pull-in auto">
             <li class="list-group-item">
               <span class="pull-left thumb-sm m-r"><img src="img/a1.jpg" alt="..." class="img-circle"></span>
-              <a href class="text-muted" ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
+              <a href class="text-muted" nstp-ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
               <div class="clear">
                 <div><a href="">Chris Fox</a></div>
                 <small class="text-muted">about 2 minutes ago</small>
@@ -417,7 +417,7 @@
             </li>
             <li class="list-group-item">
               <span class="pull-left thumb-sm m-r"><img src="img/a2.jpg" alt="..." class="img-circle"></span>
-              <a href class="text-muted" ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
+              <a href class="text-muted" nstp-ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
               <div class="clear">
                 <div><a href="">Amanda Conlan</a></div>
                 <small class="text-muted">about 2 hours ago</small>
@@ -425,7 +425,7 @@
             </li>
             <li class="list-group-item">
               <span class="pull-left thumb-sm m-r"><img src="img/a3.jpg" alt="..." class="img-circle"></span>
-              <a href class="text-muted" ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
+              <a href class="text-muted" nstp-ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
               <div class="clear">
                 <div><a href="">Dan Doorack</a></div>
                 <small class="text-muted">3 days ago</small>
@@ -433,7 +433,7 @@
             </li>
             <li class="list-group-item">
               <span class="pull-left thumb-sm m-r"><img src="img/a4.jpg" alt="..." class="img-circle"></span>
-              <a href class="text-muted" ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
+              <a href class="text-muted" nstp-ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
               <div class="clear">
                 <div><a href="">Lauren Taylor</a></div>
                 <small class="text-muted">about 2 minutes ago</small>
