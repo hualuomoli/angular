@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('assets.uiLoad')
+		.module('ui.load')
 		.service('uiLoad', uiLoad);
 
 	/** @ngInject */

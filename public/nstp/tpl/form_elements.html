@@ -560,7 +560,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Slider</label>
           <div class="col-sm-10">
-            <input id="slider" nstp-ui-jq="slider" ui-options="{
+            <input id="slider" ui-jq="slider" ui-options="{
               min: 0,
               max: 20,
               step: 1,
@@ -573,9 +573,9 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Vertical slider</label>
           <div class="col-sm-10">
-            <input nstp-ui-jq="slider" class="slider slider-vertical form-control" type="text" value="" data-slider-min="5" data-slider-max="20" data-slider-step="1" data-slider-value="11" data-slider-orientation="vertical">
-            <input nstp-ui-jq="slider" class="slider slider-vertical form-control" type="text" value="" data-slider-min="5" data-slider-max="20" data-slider-step="1" data-slider-value="15" data-slider-orientation="vertical">
-            <input nstp-ui-jq="slider" class="slider slider-vertical form-control" type="text" value="" data-slider-min="5" data-slider-max="20" data-slider-step="1" data-slider-value="12" data-slider-orientation="vertical">
+            <input ui-jq="slider" class="slider slider-vertical form-control" type="text" value="" data-slider-min="5" data-slider-max="20" data-slider-step="1" data-slider-value="11" data-slider-orientation="vertical">
+            <input ui-jq="slider" class="slider slider-vertical form-control" type="text" value="" data-slider-min="5" data-slider-max="20" data-slider-step="1" data-slider-value="15" data-slider-orientation="vertical">
+            <input ui-jq="slider" class="slider slider-vertical form-control" type="text" value="" data-slider-min="5" data-slider-max="20" data-slider-step="1" data-slider-value="12" data-slider-orientation="vertical">
           </div>
         </div>
 
@@ -583,7 +583,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Range selector</label>
           <div class="col-sm-10">
-            <input type="text" nstp-ui-jq="slider" class="slider form-control" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,750]" >
+            <input type="text" ui-jq="slider" class="slider form-control" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,750]" >
           </div>
         </div>
 
@@ -592,13 +592,13 @@
           <label class="col-sm-2 control-label">Spinner</label>
           <div class="col-sm-10">
             <div class="m-b">
-              <input nstp-ui-jq="TouchSpin" type="text" value="0" class="form-control" data-min='0' data-max="10" data-step="0.1" data-decimals="2" data-prefix="$">
+              <input ui-jq="TouchSpin" type="text" value="0" class="form-control" data-min='0' data-max="10" data-step="0.1" data-decimals="2" data-prefix="$">
             </div>
             <div class="m-b">
-              <input nstp-ui-jq="TouchSpin" type="text" value="5" class="form-control" data-min='0' data-max="10" data-step="0.1" data-decimals="2" data-postfix="%">
+              <input ui-jq="TouchSpin" type="text" value="5" class="form-control" data-min='0' data-max="10" data-step="0.1" data-decimals="2" data-postfix="%">
             </div>
             <div>
-              <input nstp-ui-jq="TouchSpin" type="text" value="10" class="form-control" data-min='0' data-max="20" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down">
+              <input ui-jq="TouchSpin" type="text" value="10" class="form-control" data-min='0' data-max="20" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down">
             </div>
           </div>
         </div>
@@ -607,7 +607,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Chosen</label>
           <div class="col-sm-10">
-            <select nstp-ui-jq="chosen" class="w-md">
+            <select ui-jq="chosen" class="w-md">
                 <optgroup label="Alaskan/Hawaiian Time Zone">
                     <option value="AK">Alaska</option>
                     <option value="HI">Hawaii</option>
@@ -671,7 +671,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Chosen multiple</label>
           <div class="col-sm-10">
-            <select nstp-ui-jq="chosen" multiple class="w-md">
+            <select ui-jq="chosen" multiple class="w-md">
               <option value="AK">Alaska</option>
               <option value="HI">Hawaii</option>
               <option value="CA">California</option>
@@ -699,7 +699,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">File input</label>
           <div class="col-sm-10">
-            <input nstp-ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+            <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
           </div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -762,7 +762,7 @@
                 <a class="btn btn-default" data-edit="redo" tooltip="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
               </div>
             </div>
-            <div nstp-ui-jq="wysiwyg" class="form-control" style="overflow:scroll;height:200px;max-height:200px">
+            <div ui-jq="wysiwyg" class="form-control" style="overflow:scroll;height:200px;max-height:200px">
               Go ahead&hellip;
             </div>
           </div>

@@ -1,24 +1,16 @@
 (function() {
-  'use strict';
+	'use strict';
 
-  angular
-    .module('app')
-    .config(router);
+	angular
+		.module('app')
+		.config(router);
 
-  /** @ngInject */
-  function router($stateProvider, $urlRouterProvider, defaultUrl) {
+	/** @ngInject */
+	function router($urlRouterProvider) {
 
-    // 默认路由
-    $urlRouterProvider.otherwise(defaultUrl);
+		// 默认路由
+		$urlRouterProvider.otherwise('/nstp/dashboard-v1');
 
-    // app 跟路由,不能直接访问
-    $stateProvider
-      .state('app', {
-        // abstract: true,
-        url: '/app',
-        templateUrl: 'tpl/hma/app.html'
-      })
-
-  }
+	}
 
 })();

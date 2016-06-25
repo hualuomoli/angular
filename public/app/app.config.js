@@ -3,7 +3,7 @@
 
   var app = angular
     .module('app')
-    .constant('defaultUrl', 'nstp/dashboard-v1')
+    // .constant('defaultUrl', 'nstp/dashboard-v1')
     .run(run)
     // .config(appConfig)
     .config(config);

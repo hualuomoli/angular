@@ -4,7 +4,7 @@
 	angular
 		.module('assets', [
 			'assets.device',
-			'assets.uiLoad'
+			'ui.load'
 		])
 
 })();
