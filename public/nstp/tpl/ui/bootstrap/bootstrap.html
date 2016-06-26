@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-lg-6">
       <!-- accordion -->      
-      <div ng-controller="AccordionDemoCtrl">
+      <div ng-controller="nstpUiBootstrapAccordionDemoCtrl">
         <accordion close-others="oneAtATime">
           <accordion-group heading="Accordion Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
             <p>
@@ -39,14 +39,14 @@
       <!-- / accordion -->
 
       <!-- alert -->
-      <div ng-controller="AlertDemoCtrl" class="m-b-md">
+      <div ng-controller="nstpUiBootstrapAlertDemoCtrl" class="m-b-md">
         <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         <button class='btn btn-default' ng-click="addAlert()">Add Alert</button>
       </div>
       <!-- / alert -->
 
       <!-- button -->
-      <div ng-controller="ButtonsDemoCtrl" class="panel panel-default">
+      <div ng-controller="nstpUiBootstrapButtonsDemoCtrl" class="panel panel-default">
         <div class="panel-heading">
           Buttons
         </div>
@@ -88,7 +88,7 @@
       <!-- / button -->
 
       <!-- carousel -->
-      <div ng-controller="CarouselDemoCtrl" class="panel b-a" set-ng-animate="false">
+      <div ng-controller="nstpUiBootstrapCarouselDemoCtrl" class="panel b-a" set-ng-animate="false">
         <div class="panel-heading">
           Carousel
         </div>
@@ -120,7 +120,7 @@
       <!-- / collapse -->
 
       <!-- dropdown -->
-      <div ng-controller="DropdownDemoCtrl" class="panel b-a">
+      <div ng-controller="nstpUiBootstrapDropdownDemoCtrl" class="panel b-a">
         <div class="panel-heading">Dropdown</div>
         <div class="panel-body">
           <!-- Simple dropdown -->
@@ -173,7 +173,7 @@
       <!-- / dropdown -->
 
       <!-- modal -->
-      <div ng-controller="ModalDemoCtrl" class="panel b-a">
+      <div ng-controller="nstpUiBootstrapModalDemoCtrl" class="panel b-a">
           <script type="text/ng-template" id="myModalContent.html">
             <div ng-include="'tpl/modal.html'"></div>
           </script>
@@ -187,7 +187,7 @@
       <!-- /modal -->
 
       <!-- pagination -->
-      <div ng-controller="PaginationDemoCtrl">
+      <div ng-controller="nstpUiBootstrapPaginationDemoCtrl">
         <h4>Pagination</h4>
         <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
         <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm m-t-none m-b" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
@@ -206,7 +206,7 @@
       <!-- / pagination -->
 
       <!-- popover -->
-      <div ng-controller="PopoverDemoCtrl" class="m-b">
+      <div ng-controller="nstpUiBootstrapPopoverDemoCtrl" class="m-b">
         <h4>Popover</h4>
         <div class="row">
           <div class="form-group col-sm-6">
@@ -244,7 +244,7 @@
     </div>
     <div class="col-lg-6">
       <!-- progressbar -->
-      <div ng-controller="ProgressDemoCtrl" class="panel panel-default">
+      <div ng-controller="nstpUiBootstrapProgressDemoCtrl" class="panel panel-default">
         <div class="panel-heading">
           <ul class="nav nav-pills pull-right">
             <li><a href ng-click="random()">Random</a></li>
@@ -276,7 +276,7 @@
       <!-- / progressbar -->
 
       <!-- rating -->
-      <div ng-controller="RatingDemoCtrl" class="m-b-lg">
+      <div ng-controller="nstpUiBootstrapRatingDemoCtrl" class="m-b-lg">
         <h4>Rating</h4>
         <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
         <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
@@ -297,7 +297,7 @@
       <!-- / rating -->
 
       <!-- tab -->
-      <div ng-controller="TabsDemoCtrl">
+      <div ng-controller="nstpUiBootstrapTabsDemoCtrl">
         <h4>Tabs</h4>
         <p>Select a tab by setting active binding to true:</p>
         <p>
@@ -333,7 +333,7 @@
       <!-- / tab -->
 
       <!-- tooltip -->
-      <div ng-controller="TooltipDemoCtrl" class="panel panel-default">
+      <div ng-controller="nstpUiBootstrapTooltipDemoCtrl" class="panel panel-default">
         <div class="panel-heading">Tooltip</div>
         <div class="panel-body">
           <div class="row">
@@ -369,7 +369,7 @@
       <!-- / tooltip -->
 
       <!-- typehead -->
-      <div ng-controller="TypeaheadDemoCtrl" class="m-b-lg">
+      <div ng-controller="nstpUiBootstrapTypeaheadDemoCtrl" class="m-b-lg">
         <h4>Typehead</h4>
         <h5>Static arrays</h5>
         <div class="well b bg-light wrapper-sm">Model: {{selected | json}}</div>
@@ -385,7 +385,7 @@
       <!-- / typehead -->
 
       <!-- datepicker -->
-      <div ng-controller="DatepickerDemoCtrl" class="m-b-lg">
+      <div ng-controller="nstpUiBootstrapDatepickerDemoCtrl" class="m-b-lg">
         <h4>Datepicker</h4>
         <h5>Inline</h5>
         <div class="m-b">
@@ -414,7 +414,7 @@
       <!-- / datepicker -->
 
       <!-- timepicker -->
-      <div ng-controller="TimepickerDemoCtrl" class="m-b-lg">
+      <div ng-controller="nstpUiBootstrapTimepickerDemoCtrl" class="m-b-lg">
         <h4>Timepicker</h4>
         <timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
 

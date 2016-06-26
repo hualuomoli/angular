@@ -198,8 +198,13 @@ gulp.task('tpl', function() {
     .pipe(gulp.dest(options.dist));
 });
 
+// start
+gulp.task('start', ['js:assets', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image', 'tpl'], function(cb) {
+  return cb();
+})
+
 // index -- 替换
-gulp.task('index', ['js:assets', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image', 'tpl'], function() {
+gulp.task('index', ['start'], function() {
 
   var jsAppArray = build.files;
 
@@ -248,7 +253,7 @@ gulp.task('index', ['js:assets', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image
 })
 
 // watch
-gulp.task('watch', ['js:assets', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image', 'tpl'], function() {
+gulp.task('watch', ['start'], function() {
 
   // 浏览器调试工具
   browserSync.init({
@@ -270,32 +275,7 @@ gulp.task('watch', ['js:assets', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image
   });
 
   // js - assets
-  gulp.watch(['./public/assets/**/*'], ['js:assets']).on('change', browserSync.reload);
-  // js - app
-  gulp.watch([
-    '!./public/app/**/*.service.js', // service
-    '!./public/app/**/*.controller.js', // controller
-    './public/app/**/*', // app
-  ], ['js:app']).on('change', browserSync.reload);
-  // js - app - lazy
-  gulp.watch([
-    './public/app/**/*.service.js', // service
-    './public/app/**/*.controller.js' // controller
-  ], ['js:app:lazy']).on('change', browserSync.reload);
-  // fonts
-  gulp.watch(['./public//**/fonts/**/*'], ['fonts']).on('change', browserSync.reload);
-  // css
-  gulp.watch(['./public/**/css/**/*'], ['css']).on('change', browserSync.reload);
-  // image
-  gulp.watch([
-    './public/**/image/**/*',
-    './public/**/img/**/*'
-  ], ['image']).on('change', browserSync.reload);
-  // tpl
-  gulp.watch([
-    './public/index.html',
-    './public/**/tpl/**/*',
-  ], ['tpl']).on('change', browserSync.reload);
+  gulp.watch(['./public/**/*'], ['start']).on('change', browserSync.reload);
 
 })
 
