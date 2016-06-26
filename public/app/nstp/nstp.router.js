@@ -22,17 +22,14 @@
                 '../../nstp/css/animate.css',
                 '../../nstp/css/font.css',
                 '../../nstp/css/app.css',
+                'app/nstp/nstp.service.js',
                 'app/nstp/nstp.controller.js'
               ]);
             }
           ]
         }
       })
-      .state('nstp.dashboard-v1', {
-        url: '/dashboard-v1',
-        templateUrl: 'tpl/ui_toaster.html'
-      })
-
+    // end
   }
 
 })();

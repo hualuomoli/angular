@@ -6,7 +6,7 @@
 		.controller('nstpCtrl', nstpCtrl);
 
 	/** @ngInject */
-	function nstpCtrl($scope, $localStorage) {
+	function nstpCtrl($scope, $localStorage, nstpService) {
 
 		// config
 		$scope.app = {
@@ -36,6 +36,8 @@
 			}
 		}
 
+		$localStorage.settings = undefined;
+
 		// save settings to local storage
 		if (angular.isDefined($localStorage.settings)) {
 			$scope.app.settings = $localStorage.settings;
@@ -50,6 +52,23 @@
 			// save to local storage
 			$localStorage.settings = $scope.app.settings;
 		}, true);
+
+		// header
+		$scope.selected = undefined;
+		$scope.states = [];
+
+		// 页面加载完成后,加载数据
+		$scope.$watch('$viewContentLoaded', function() {
+			loadStates();
+		});
+
+		function loadStates() {
+			nstpService
+				.loadStates()
+				.then(function(data) {
+					$scope.states = data;
+				});
+		}
 
 	}
 

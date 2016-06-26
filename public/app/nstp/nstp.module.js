@@ -14,6 +14,7 @@
 			'ui.validate',
 
 			// 模块
+			'nstp.dashboard'
 
 		])
 
