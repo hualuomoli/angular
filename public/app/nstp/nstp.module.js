@@ -7,7 +7,7 @@
 			'oc.lazyLoad',
 
 			'ngStorage',
-			'ui.bootstrap',
+			'bui.bootstrap',
 
 			'assets',
 			'ui.jq',

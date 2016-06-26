@@ -5,9 +5,9 @@
  * Version: 0.12.0 - 2014-11-16
  * License: MIT
  */
-angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
-angular.module("ui.bootstrap.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/carousel/carousel.html","template/carousel/slide.html","template/datepicker/datepicker.html","template/datepicker/day.html","template/datepicker/month.html","template/datepicker/popup.html","template/datepicker/year.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset.html","template/timepicker/timepicker.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
-angular.module('ui.bootstrap.transition', [])
+angular.module("bui.bootstrap", ["bui.bootstrap.tpls", "bui.bootstrap.transition","bui.bootstrap.collapse","bui.bootstrap.accordion","bui.bootstrap.alert","bui.bootstrap.bindHtml","bui.bootstrap.buttons","bui.bootstrap.carousel","bui.bootstrap.dateparser","bui.bootstrap.position","bui.bootstrap.datepicker","bui.bootstrap.dropdown","bui.bootstrap.modal","bui.bootstrap.pagination","bui.bootstrap.tooltip","bui.bootstrap.popover","bui.bootstrap.progressbar","bui.bootstrap.rating","bui.bootstrap.tabs","bui.bootstrap.timepicker","bui.bootstrap.typeahead"]);
+angular.module("bui.bootstrap.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/carousel/carousel.html","template/carousel/slide.html","template/datepicker/datepicker.html","template/datepicker/day.html","template/datepicker/month.html","template/datepicker/popup.html","template/datepicker/year.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset.html","template/timepicker/timepicker.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
+angular.module('bui.bootstrap.transition', [])
 
 /**
  * $transition service provides a consistent interface to trigger CSS 3 transitions and to be informed when they complete.
@@ -90,7 +90,7 @@ angular.module('ui.bootstrap.transition', [])
   return $transition;
 }]);
 
-angular.module('ui.bootstrap.collapse', ['ui.bootstrap.transition'])
+angular.module('bui.bootstrap.collapse', ['bui.bootstrap.transition'])
 
   .directive('collapse', ['$transition', function ($transition) {
 
@@ -166,7 +166,7 @@ angular.module('ui.bootstrap.collapse', ['ui.bootstrap.transition'])
     };
   }]);
 
-angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
+angular.module('bui.bootstrap.accordion', ['bui.bootstrap.collapse'])
 
 .constant('accordionConfig', {
   closeOthers: true
@@ -297,7 +297,7 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
   };
 });
 
-angular.module('ui.bootstrap.alert', [])
+angular.module('bui.bootstrap.alert', [])
 
 .controller('AlertController', ['$scope', '$attrs', function ($scope, $attrs) {
   $scope.closeable = 'close' in $attrs;
@@ -329,7 +329,7 @@ angular.module('ui.bootstrap.alert', [])
   };
 }]);
 
-angular.module('ui.bootstrap.bindHtml', [])
+angular.module('bui.bootstrap.bindHtml', [])
 
   .directive('bindHtmlUnsafe', function () {
     return function (scope, element, attr) {
@@ -339,7 +339,7 @@ angular.module('ui.bootstrap.bindHtml', [])
       });
     };
   });
-angular.module('ui.bootstrap.buttons', [])
+angular.module('bui.bootstrap.buttons', [])
 
 .constant('buttonConfig', {
   activeClass: 'active',
@@ -416,13 +416,13 @@ angular.module('ui.bootstrap.buttons', [])
 
 /**
 * @ngdoc overview
-* @name ui.bootstrap.carousel
+* @name bui.bootstrap.carousel
 *
 * @description
 * AngularJS version of an image carousel.
 *
 */
-angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
+angular.module('bui.bootstrap.carousel', ['bui.bootstrap.transition'])
 .controller('CarouselController', ['$scope', '$timeout', '$interval', '$transition', function ($scope, $timeout, $interval, $transition) {
   var self = this,
     slides = self.slides = $scope.slides = [],
@@ -589,7 +589,7 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.carousel.directive:carousel
+ * @name bui.bootstrap.carousel.directive:carousel
  * @restrict EA
  *
  * @description
@@ -600,7 +600,7 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
  * @param {boolean=} noPause Whether to disable pausing on the carousel (by default, the carousel interval pauses on hover).
  *
  * @example
-<example module="ui.bootstrap">
+<example module="bui.bootstrap">
   <file name="index.html">
     <carousel>
       <slide>
@@ -643,16 +643,16 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.carousel.directive:slide
+ * @name bui.bootstrap.carousel.directive:slide
  * @restrict EA
  *
  * @description
- * Creates a slide inside a {@link ui.bootstrap.carousel.directive:carousel carousel}.  Must be placed as a child of a carousel element.
+ * Creates a slide inside a {@link bui.bootstrap.carousel.directive:carousel carousel}.  Must be placed as a child of a carousel element.
  *
  * @param {boolean=} active Model binding, whether or not this slide is currently active.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="bui.bootstrap">
   <file name="index.html">
 <div ng-controller="CarouselDemoCtrl">
   <carousel>
@@ -708,7 +708,7 @@ function CarouselDemoCtrl($scope) {
   };
 });
 
-angular.module('ui.bootstrap.dateparser', [])
+angular.module('bui.bootstrap.dateparser', [])
 
 .service('dateParser', ['$locale', 'orderByFilter', function($locale, orderByFilter) {
 
@@ -835,7 +835,7 @@ angular.module('ui.bootstrap.dateparser', [])
   }
 }]);
 
-angular.module('ui.bootstrap.position', [])
+angular.module('bui.bootstrap.position', [])
 
 /**
  * A set of utility methods that can be use to retrieve position of DOM elements.
@@ -988,7 +988,7 @@ angular.module('ui.bootstrap.position', [])
     };
   }]);
 
-angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootstrap.position'])
+angular.module('bui.bootstrap.datepicker', ['bui.bootstrap.dateparser', 'bui.bootstrap.position'])
 
 .constant('datepickerConfig', {
   formatDay: 'dd',
@@ -1628,7 +1628,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
   };
 });
 
-angular.module('ui.bootstrap.dropdown', [])
+angular.module('bui.bootstrap.dropdown', [])
 
 .constant('dropdownConfig', {
   openClass: 'open'
@@ -1790,7 +1790,7 @@ angular.module('ui.bootstrap.dropdown', [])
   };
 });
 
-angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
+angular.module('bui.bootstrap.modal', ['bui.bootstrap.transition'])
 
 /**
  * A helper, internal data structure that acts as a map but also allows getting / removing
@@ -2206,7 +2206,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
     return $modalProvider;
   });
 
-angular.module('ui.bootstrap.pagination', [])
+angular.module('bui.bootstrap.pagination', [])
 
 .controller('PaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
   var self = this,
@@ -2426,7 +2426,7 @@ angular.module('ui.bootstrap.pagination', [])
  * function, placement as a function, inside, support for more triggers than
  * just mouse enter/leave, html tooltips, and selector delegation.
  */
-angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap.bindHtml' ] )
+angular.module( 'bui.bootstrap.tooltip', [ 'bui.bootstrap.position', 'bui.bootstrap.bindHtml' ] )
 
 /**
  * The $tooltip service creates tooltip- and popover-like directives as well as
@@ -2454,7 +2454,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
    * `options({})` allows global configuration of all tooltips in the
    * application.
    *
-   *   var app = angular.module( 'App', ['ui.bootstrap.tooltip'], function( $tooltipProvider ) {
+   *   var app = angular.module( 'App', ['bui.bootstrap.tooltip'], function( $tooltipProvider ) {
    *     // place tooltips left instead of top by default
    *     $tooltipProvider.options( { placement: 'left' } );
    *   });
@@ -2788,7 +2788,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
  * function, placement as a function, inside, support for more triggers than
  * just mouse enter/leave, html popovers, and selector delegatation.
  */
-angular.module( 'ui.bootstrap.popover', [ 'ui.bootstrap.tooltip' ] )
+angular.module( 'bui.bootstrap.popover', [ 'bui.bootstrap.tooltip' ] )
 
 .directive( 'popoverPopup', function () {
   return {
@@ -2803,7 +2803,7 @@ angular.module( 'ui.bootstrap.popover', [ 'ui.bootstrap.tooltip' ] )
   return $tooltip( 'popover', 'popover', 'click' );
 }]);
 
-angular.module('ui.bootstrap.progressbar', [])
+angular.module('bui.bootstrap.progressbar', [])
 
 .constant('progressConfig', {
   animate: true,
@@ -2884,7 +2884,7 @@ angular.module('ui.bootstrap.progressbar', [])
         }
     };
 });
-angular.module('ui.bootstrap.rating', [])
+angular.module('bui.bootstrap.rating', [])
 
 .constant('ratingConfig', {
   max: 5,
@@ -2970,13 +2970,13 @@ angular.module('ui.bootstrap.rating', [])
 
 /**
  * @ngdoc overview
- * @name ui.bootstrap.tabs
+ * @name bui.bootstrap.tabs
  *
  * @description
  * AngularJS version of the tabs directive.
  */
 
-angular.module('ui.bootstrap.tabs', [])
+angular.module('bui.bootstrap.tabs', [])
 
 .controller('TabsetController', ['$scope', function TabsetCtrl($scope) {
   var ctrl = this,
@@ -3023,7 +3023,7 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tabset
+ * @name bui.bootstrap.tabs.directive:tabset
  * @restrict EA
  *
  * @description
@@ -3033,7 +3033,7 @@ angular.module('ui.bootstrap.tabs', [])
  * @param {boolean=} justified Whether or not to use justified styling for the tabs.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="bui.bootstrap">
   <file name="index.html">
     <tabset>
       <tab heading="Tab 1"><b>First</b> Content!</tab>
@@ -3070,19 +3070,19 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tab
+ * @name bui.bootstrap.tabs.directive:tab
  * @restrict EA
  *
- * @param {string=} heading The visible heading, or title, of the tab. Set HTML headings with {@link ui.bootstrap.tabs.directive:tabHeading tabHeading}.
+ * @param {string=} heading The visible heading, or title, of the tab. Set HTML headings with {@link bui.bootstrap.tabs.directive:tabHeading tabHeading}.
  * @param {string=} select An expression to evaluate when the tab is selected.
  * @param {boolean=} active A binding, telling whether or not this tab is selected.
  * @param {boolean=} disabled A binding, telling whether or not this tab is disabled.
  *
  * @description
- * Creates a tab with a heading and content. Must be placed within a {@link ui.bootstrap.tabs.directive:tabset tabset}.
+ * Creates a tab with a heading and content. Must be placed within a {@link bui.bootstrap.tabs.directive:tabset tabset}.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="bui.bootstrap">
   <file name="index.html">
     <div ng-controller="TabsDemoCtrl">
       <button class="btn btn-small" ng-click="items[0].active = true">
@@ -3126,14 +3126,14 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tabHeading
+ * @name bui.bootstrap.tabs.directive:tabHeading
  * @restrict EA
  *
  * @description
- * Creates an HTML heading for a {@link ui.bootstrap.tabs.directive:tab tab}. Must be placed as a child of a tab element.
+ * Creates an HTML heading for a {@link bui.bootstrap.tabs.directive:tab tab}. Must be placed as a child of a tab element.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="bui.bootstrap">
   <file name="index.html">
     <tabset>
       <tab>
@@ -3247,7 +3247,7 @@ angular.module('ui.bootstrap.tabs', [])
 
 ;
 
-angular.module('ui.bootstrap.timepicker', [])
+angular.module('bui.bootstrap.timepicker', [])
 
 .constant('timepickerConfig', {
   hourStep: 1,
@@ -3502,7 +3502,7 @@ angular.module('ui.bootstrap.timepicker', [])
   };
 });
 
-angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap.bindHtml'])
+angular.module('bui.bootstrap.typeahead', ['bui.bootstrap.position', 'bui.bootstrap.bindHtml'])
 
 /**
  * A helper service that can parse typeahead's syntax (string provided by users)
