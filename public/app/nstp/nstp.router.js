@@ -13,7 +13,7 @@
       .state('nstp', {
         abstract: true,
         url: '/nstp',
-        templateUrl: 'tpl/app.html',
+        templateUrl: 'nstp/tpl/app.html',
         controller: 'nstpCtrl',
         resolve: {
           deps: ['$ocLazyLoad',

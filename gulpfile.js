@@ -265,11 +265,6 @@ gulp.task('watch', ['start'], function() {
         "/bower_components": "./bower_components",
         "/vendor": "./vendor",
         '/favicon.ico': './favicon.ico',
-        "/tpl": "./public/nstp/tpl",
-        "/css": "./public/nstp/css",
-        "/img": "./public/nstp/img",
-        "/fonts": "./public/nstp/fonts",
-
       }
     }
   });

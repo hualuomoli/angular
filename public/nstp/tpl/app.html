@@ -1,11 +1,11 @@
 <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}">
   <!-- navbar -->
-  <div data-ng-include=" 'tpl/blocks/header.html' " class="app-header navbar">
+  <div data-ng-include=" 'nstp/tpl/blocks/header.html' " class="app-header navbar">
   </div>
   <!-- / navbar -->
 
   <!-- menu -->
-  <div data-ng-include=" 'tpl/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+  <div data-ng-include=" 'nstp/tpl/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
   </div>
   <!-- / menu -->
 
@@ -29,7 +29,7 @@
           <div class="cell-inner padder">
             <!-- chat list -->
             <div class="m-b">
-              <a href class="pull-left thumb-xs avatar"><img src="img/a2.jpg" alt="..."></a>
+              <a href class="pull-left thumb-xs avatar"><img src="nstp/img/a2.jpg" alt="..."></a>
               <div class="clear">
                 <div class="pos-rlt wrapper-sm b b-light r m-l-sm">
                   <span class="arrow left pull-up"></span>
@@ -39,7 +39,7 @@
               </div>
             </div>
             <div class="m-b">
-              <a href class="pull-right thumb-xs avatar"><img src="img/a3.jpg" class="img-circle" alt="..."></a>
+              <a href class="pull-right thumb-xs avatar"><img src="nstp/img/a3.jpg" class="img-circle" alt="..."></a>
               <div class="clear">
                 <div class="pos-rlt wrapper-sm bg-light r m-r-sm">
                   <span class="arrow right pull-up arrow-light"></span>
@@ -49,7 +49,7 @@
               </div>
             </div>
             <div class="m-b">
-              <a href class="pull-left thumb-xs avatar"><img src="img/a2.jpg" alt="..."></a>
+              <a href class="pull-left thumb-xs avatar"><img src="nstp/img/a2.jpg" alt="..."></a>
               <div class="clear">
                 <div class="pos-rlt wrapper-sm b b-light r m-l-sm">
                   <span class="arrow left pull-up"></span>
@@ -83,6 +83,6 @@
   </div>
   <!-- / footer -->
 
-  <div data-ng-include=" 'tpl/blocks/settings.html' " class="settings panel panel-default">
+  <div data-ng-include=" 'nstp/tpl/blocks/settings.html' " class="settings panel panel-default">
   </div>
 </div>
