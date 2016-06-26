@@ -6,7 +6,7 @@
 		.controller('nstpCtrl', nstpCtrl);
 
 	/** @ngInject */
-	function nstpCtrl($scope, $localStorage, nstpService) {
+	function nstpCtrl($rootScope, $scope, $localStorage, nstpService, userPermission) {
 
 		// config
 		$scope.app = {
@@ -57,6 +57,11 @@
 		$scope.selected = undefined;
 		$scope.states = [];
 
+		// 是否有权限
+		$rootScope.hasPermission = function(permission) {
+			return userPermission.hasPermission(permission);
+		}
+
 		// 页面加载完成后,加载数据
 		$scope.$watch('$viewContentLoaded', function() {
 			loadStates();
@@ -67,6 +72,15 @@
 				.loadStates()
 				.then(function(data) {
 					$scope.states = data;
+				});
+			nstpService
+				.loadPermissions()
+				.then(function(datas) {
+					var permissions = {};
+					for (var i = 0; i < datas.length; i++) {
+						permissions[datas[i]] = true;
+					}
+					userPermission.setPermissions(permissions);
 				});
 		}
 

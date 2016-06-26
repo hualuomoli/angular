@@ -1,9 +1,9 @@
 <!-- list -->
 <ul class="nav">
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-show="hasPermission('nstp:navigation')">
     <span translate="aside.nav.HEADER">Navigation</span>
   </li>
-  <li>
+  <li ng-show="hasPermission('nstp:dashboard')">
     <a href class="auto">      
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -18,12 +18,12 @@
           <span translate="aside.nav.DASHBOARD">Dashboard</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:dashboard:v1')">
         <a ui-sref="nstp.dashboard.v1">
           <span>Dashboard v1</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:dashboard:v2')">
         <a ui-sref="nstp.dashboard.v2">
           <b class="label bg-info pull-right">N</b>
           <span>Dashboard v2</span>
@@ -31,20 +31,20 @@
       </li>
     </ul>
   </li>
-  <li ui-sref-active="active">
+  <li ui-sref-active="active" ng-show="hasPermission('nstp:calendar')">
     <a ui-sref="nstp.calendar">
       <i class="glyphicon glyphicon-calendar icon text-info-dker"></i>
       <span class="font-bold" translate="aside.nav.CALENDAR">Calendar</span>
     </a>
   </li>
-  <li ui-sref-active="active">
+  <li ui-sref-active="active" ng-show="hasPermission('nstp:email')">
     <a ui-sref="nstp.mail.list">
       <b class="badge bg-info pull-right">9</b>
       <i class="glyphicon glyphicon-envelope icon text-info-lter"></i>
       <span class="font-bold" translate="aside.nav.EMAIL">Email</span>
     </a>
   </li>
-  <li>
+  <li ng-show="hasPermission('nstp:apps')">
     <a href class="auto">
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -59,17 +59,17 @@
           <span>Apps</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:apps:note')">
         <a ui-sref="apps.note">
           <span>Note</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:apps:concats')">
         <a ui-sref="apps.contact">
           <span>Contacts</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:apps:weather')">
         <a ui-sref="nstp.weather">
           <span>Weather</span>
         </a>
@@ -77,7 +77,7 @@
     </ul>
   </li>
 
-  <li class="line dk"></li>
+  <li class="line dk" ng-show="hasPermission('nstp:navigation')"></li>
 
   <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
     <span translate="aside.nav.components.COMPONENTS">Components</span>

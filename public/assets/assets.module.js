@@ -6,7 +6,8 @@
 			'assets.device',
 			'ui.load',
 			'data.load',
-			'http.load'
+			'http.load',
+			'user.permission'
 		])
 
 })();

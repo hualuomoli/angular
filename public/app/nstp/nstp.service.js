@@ -11,6 +11,7 @@
 		var service = this;
 
 		service.loadStates = loadStates;
+		service.loadPermissions = loadPermissions;
 
 		function loadStates() {
 			return dataLoad.load([
@@ -18,6 +19,23 @@
 			]);
 
 		}
+
+		function loadPermissions() {
+			return dataLoad.load([
+				'nstp:navigation',
+				'nstp:dashboard',
+				'nstp:dashboard:v1', // menu
+				'nstp:dashboard:v1:view', // function
+				'nstp:dashboard:v2',
+				'nstp:calendar',
+				'nstp:email',
+				'nstp:apps',
+				'nstp:apps:note',
+				// 'nstp:apps:contacts', // remove
+				'nstp:apps:weather',
+			]);
+		}
+
 	}
 
 })();
