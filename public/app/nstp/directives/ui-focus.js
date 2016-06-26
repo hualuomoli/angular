@@ -1,8 +1,8 @@
 angular.module('app')
-  .directive('uiFocus', function($timeout, $parse) {
+  .directive('nstpUiFocus', function($timeout, $parse) {
     return {
       link: function(scope, element, attr) {
-        var model = $parse(attr.uiFocus);
+        var model = $parse(attr.nstpUiFocus);
         scope.$watch(model, function(value) {
           if(value === true) {
             $timeout(function() {

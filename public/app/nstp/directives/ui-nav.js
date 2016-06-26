@@ -1,5 +1,5 @@
 angular.module('app')
-  .directive('uiNav', ['$timeout',
+  .directive('nstpUiNav', ['$timeout',
     function($timeout) {
       return {
         restrict: 'AC',

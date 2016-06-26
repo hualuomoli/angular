@@ -1,11 +1,11 @@
 angular.module('app')
-  .directive('uiToggleClass', ['$timeout', '$document', function($timeout, $document) {
+  .directive('nstpUiToggleClass', ['$timeout', '$document', function($timeout, $document) {
     return {
       restrict: 'AC',
       link: function(scope, el, attr) {
         el.on('click', function(e) {
           e.preventDefault();
-          var classes = attr.uiToggleClass.split(','),
+          var classes = attr.nstpUiToggleClass.split(','),
               targets = (attr.target && attr.target.split(',')) || Array(el),
               key = 0;
           angular.forEach(classes, function( _class ) {

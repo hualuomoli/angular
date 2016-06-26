@@ -16,14 +16,14 @@
  * If an object literal is passed a key denotes a validation error key while a value should be a validator function.
  * In both cases validator function should take a value to validate as its argument and should return true/false indicating a validation result.
  */
-angular.module('ui.validate', []).directive('uiValidate', function() {
+angular.module('ui.validate', []).directive('nstpUiValidate', function() {
 
   return {
     restrict: 'A',
     require: 'ngModel',
     link: function(scope, elm, attrs, ctrl) {
       var validateFn, validators = {},
-        validateExpr = scope.$eval(attrs.uiValidate);
+        validateExpr = scope.$eval(attrs.nstpUiValidate);
 
       if (!validateExpr) {
         return;

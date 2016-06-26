@@ -3,22 +3,16 @@
 
 	angular
 		.module('http.load')
-		.provider('httpLoad', httpLoad);
+		.factory('httpLoad', httpLoad);
 
 	/** @ngInject */
-	function httpLoad($http) {
-
+	function httpLoad($http, serverUrl, tokenHeader) {
 		/* jshint validthis:true */
-		this.serverUrl = '';
-		this.tokenHeader = {};
-
-		this.$get = function() {
-			return {
-				get: doGet,
-				post: doPost,
-				json: doJson,
-				delete: doDelete
-			}
+		return {
+			get: doGet,
+			post: doPost,
+			json: doJson,
+			delete: doDelete
 		}
 
 		function doGet(url, params) {
@@ -26,7 +20,7 @@
 				method: 'GET',
 				url: getUrl(url),
 				params: !!params ? params : '',
-				headers: angular.extend({}, tokenHeader)
+				headers: angular.extend({}, this.tokenHeader)
 			});
 		}
 
@@ -35,7 +29,7 @@
 				method: 'POST',
 				url: getUrl(url),
 				data: $.param(!!params ? params : {}),
-				headers: angular.extend({}, !!headers ? headers : tokenHeader, {
+				headers: angular.extend({}, !!headers ? headers : this.tokenHeader, {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				})
 			});
@@ -46,7 +40,7 @@
 				method: 'POST',
 				url: getUrl(url),
 				data: angular.toJson(!!params ? params : {}),
-				headers: angular.extend({}, !!headers ? headers : tokenHeader, {
+				headers: angular.extend({}, !!headers ? headers : this.tokenHeader, {
 					'Content-Type': 'application/json'
 				})
 			});
@@ -56,12 +50,12 @@
 			return $http({
 				method: 'DELETE',
 				url: getUrl(url),
-				headers: angular.extend({}, tokenHeader)
+				headers: angular.extend({}, this.tokenHeader)
 			});
 		}
 
 		function getUrl(url) {
-			return serverUrl + url;
+			return this.serverUrl + url;
 		}
 
 	}

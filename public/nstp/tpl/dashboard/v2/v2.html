@@ -10,7 +10,7 @@
           <li><a href ng-click="refreshData()">Week</a></li>
           <li><a href ng-click="refreshData()">Month</a></li>
         </ul>
-        <div ui-jq="plot" ui-refresh="d0_1" ui-options="
+        <div nstp-ui-jq="plot" ui-refresh="d0_1" ui-options="
         [
           { data: {{d0_1}}, points: { show: true, radius: 2}, splines: { show: true, tension: 0.4, lineWidth: 1 } }
         ],
@@ -50,7 +50,7 @@
       <div class="row text-center">
         <div class="col-sm-3 col-xs-6">
           <div>Todays activity</div>
-          <div ui-jq="easyPieChart" ui-options="{
+          <div nstp-ui-jq="easyPieChart" ui-options="{
               percent: 75,
               lineWidth: 4,
               trackColor: '{{app.color.light}}',
@@ -67,7 +67,7 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <div>Active Players</div>
-          <div ui-jq="easyPieChart" ui-options="{
+          <div nstp-ui-jq="easyPieChart" ui-options="{
               percent: 35,
               lineWidth: 4,
               trackColor: '{{app.color.light}}',
@@ -84,7 +84,7 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <div>Weekly Changes</div>
-          <div ui-jq="easyPieChart" ui-options="{
+          <div nstp-ui-jq="easyPieChart" ui-options="{
               percent: 50,
               lineWidth: 4,
               trackColor: '{{app.color.light}}',
@@ -101,7 +101,7 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <div>Monthly Changes</div>
-          <div ui-jq="easyPieChart" ui-options="{
+          <div nstp-ui-jq="easyPieChart" ui-options="{
               percent: 60,
               lineWidth: 4,
               trackColor: '{{app.color.light}}',

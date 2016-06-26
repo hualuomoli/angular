@@ -1,5 +1,5 @@
 angular.module('app')
-  .directive('uiShift', ['$timeout', function($timeout) {
+  .directive('nstpUiShift', ['$timeout', function($timeout) {
     return {
       restrict: 'A',
       link: function(scope, el, attr) {
@@ -15,7 +15,7 @@ angular.module('app')
         
         function sm(){
           $timeout(function () {
-            var method = attr.uiShift;
+            var method = attr.nstpUiShift;
             var target = attr.target;
             _el.hasClass('in') || _el[method](target).addClass('in');
           });

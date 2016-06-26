@@ -3,6 +3,8 @@
 
   var app = angular
     .module('app')
+    .constant('serverUrl', '') // 远程服务端地址
+    .value('tokenHeader', {}) // 权限token的header
     // .constant('defaultUrl', 'nstp/dashboard-v1')
     .run(run)
     // .config(appConfig)

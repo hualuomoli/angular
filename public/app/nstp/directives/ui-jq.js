@@ -18,17 +18,17 @@
  */
 angular.module('ui.jq', ['ui.load']).
 value('uiJqConfig', {}).
-directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout',
+directive('nstpUiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout',
   function uiJqInjectingFunction(uiJqConfig, JQ_CONFIG, uiLoad, $timeout) {
 
     return {
       restrict: 'A',
       compile: function uiJqCompilingFunction(tElm, tAttrs) {
 
-        if (!angular.isFunction(tElm[tAttrs.uiJq]) && !JQ_CONFIG[tAttrs.uiJq]) {
-          throw new Error('ui-jq: The "' + tAttrs.uiJq + '" function does not exist');
+        if (!angular.isFunction(tElm[tAttrs.nstpUiJq]) && !JQ_CONFIG[tAttrs.nstpUiJq]) {
+          throw new Error('ui-jq: The "' + tAttrs.nstpUiJq + '" function does not exist');
         }
-        var options = uiJqConfig && uiJqConfig[tAttrs.uiJq];
+        var options = uiJqConfig && uiJqConfig[tAttrs.nstpUiJq];
 
         return function uiJqLinkingFunction(scope, elm, attrs) {
 
@@ -57,7 +57,7 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout',
           // Call jQuery method and pass relevant options
           function callPlugin() {
             $timeout(function() {
-              elm[attrs.uiJq].apply(elm, getOptions());
+              elm[attrs.nstpUiJq].apply(elm, getOptions());
             }, 0, false);
           }
 
@@ -70,8 +70,8 @@ directive('uiJq', ['uiJqConfig', 'JQ_CONFIG', 'uiLoad', '$timeout',
             }
           }
 
-          if (JQ_CONFIG[attrs.uiJq]) {
-            uiLoad.load(JQ_CONFIG[attrs.uiJq]).then(function() {
+          if (JQ_CONFIG[attrs.nstpUiJq]) {
+            uiLoad.load(JQ_CONFIG[attrs.nstpUiJq]).then(function() {
               callPlugin();
               refresh();
             }).catch(function() {

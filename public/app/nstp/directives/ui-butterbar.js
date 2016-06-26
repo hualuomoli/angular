@@ -1,5 +1,5 @@
 angular.module('app')
-  .directive('uiButterbar', ['$rootScope', '$anchorScroll', function($rootScope, $anchorScroll) {
+  .directive('nstpUiButterbar', ['$rootScope', '$anchorScroll', function($rootScope, $anchorScroll) {
      return {
       restrict: 'AC',
       template:'<span class="bar"></span>',

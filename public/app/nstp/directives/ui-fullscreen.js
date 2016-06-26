@@ -1,5 +1,5 @@
  angular.module('app')
-   .directive('uiFullscreen', ['uiLoad', '$document', '$window',
+   .directive('nstpUiFullscreen', ['uiLoad', '$document', '$window',
      function(uiLoad, $document, $window) {
        return {
          restrict: 'AC',
