@@ -104,7 +104,7 @@ gulp.task('js:app', function() {
       './public/app/**/*.interceptor.js', // interceptor
       './public/app/**/*.router.js', // router
       './public/app/**/*.config.js', // config
-      './public/app/**/directives/**/*', // directives
+      './public/directives/**/*', // directives
     ], {
       base: './public'
     })
