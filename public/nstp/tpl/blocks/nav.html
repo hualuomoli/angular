@@ -79,10 +79,10 @@
 
   <li class="line dk" ng-show="hasPermission('nstp:navigation')"></li>
 
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-show="hasPermission('nstp:components')">
     <span translate="aside.nav.components.COMPONENTS">Components</span>
   </li>
-  <li>
+  <li ng-show="hasPermission('nstp:layout')">
     <a href class="auto">      
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -98,24 +98,24 @@
           <span>Layout</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:layout:application')">
         <a ui-sref="layout.app">
           <span>Application</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:layout:fullwidth')">
         <a ui-sref="layout.fullwidth">
           <span>Full width</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:layout:mobile')">
         <a ui-sref="layout.mobile">
           <span>Mobile</span>
         </a>
       </li>      
     </ul>
   </li>
-  <li ng-class="{active:$state.includes('app.ui')}">
+  <li ng-class="{active:$state.includes('app.ui')}" ng-show="hasPermission('nstp:ui')">
     <a href class="auto">
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -130,67 +130,67 @@
           <span translate="aside.nav.components.ui_kits.UI_KITS">UI Kits</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:buttons')">
         <a ui-sref="nstp.ui.buttons">
           <span translate="aside.nav.components.ui_kits.BUTTONS">Buttons</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:icons')">
         <a ui-sref="nstp.ui.icons">
           <b class="badge bg-info pull-right">3</b>
           <span translate="aside.nav.components.ui_kits.ICONS">Icons</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:grid')">
         <a ui-sref="nstp.ui.grid">
           <span translate="aside.nav.components.ui_kits.GRID">Grid</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:widgets')">
         <a ui-sref="nstp.ui.widgets">
           <b class="badge bg-success pull-right">13</b>
           <span translate="aside.nav.WIDGETS">Widgets</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:bootstrap')">
         <a ui-sref="nstp.ui.bootstrap">
           <b class="badge bg-primary pull-right">16</b>
           <span translate="aside.nav.components.ui_kits.BOOTSTRAP">Bootstrap</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:sortable')">
         <a ui-sref="nstp.ui.sortable">
           <span translate="aside.nav.components.ui_kits.SORTABLE">Sortable</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:portlet')">
         <a ui-sref="nstp.ui.portlet">
           <span translate="aside.nav.components.ui_kits.PORTLET">Portlet</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:timeline')">
         <a ui-sref="nstp.ui.timeline">
           <span translate="aside.nav.components.ui_kits.TIMELINE">Timeline</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:toaster')">
         <a ui-sref="nstp.ui.toaster">
           <span>Toaster</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:jvectormap')">
         <a ui-sref="nstp.ui.jvectormap">
           <span translate="aside.nav.components.ui_kits.VECTOR_MAP">Vector Map</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:googlemap')">
         <a ui-sref="nstp.ui.googlemap">
           <span>Google Map</span>
         </a>
       </li>
     </ul>
   </li>
-  <li ng-class="{active:$state.includes('app.table')}">
+  <li ng-class="{active:$state.includes('app.table')}" ng-show="hasPermission('nstp:table')">
     <a href class="auto">
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -206,29 +206,29 @@
           <span translate="aside.nav.components.table.TABLE">Table</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:table:static')">
         <a ui-sref="nstp.table.static">
           <span translate="aside.nav.components.table.TABLE_STATIC">Table static</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:table:datatable')">
         <a ui-sref="nstp.table.datatable">
           <span translate="aside.nav.components.table.DATATABLE">Datatable</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:table:footable')">
         <a ui-sref="nstp.table.footable">
           <span translate="aside.nav.components.table.FOOTABLE">Footable</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:table:grid')">
         <a ui-sref="nstp.table.grid">
           <span>ngGrid</span>
         </a>
       </li>
     </ul>
   </li>
-  <li ng-class="{active:$state.includes('app.form')}">
+  <li ng-class="{active:$state.includes('app.form')}" ng-show="hasPermission('nstp:form')">
     <a href class="auto">
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -243,55 +243,55 @@
           <span translate="aside.nav.components.form.FORM">Form</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:form:elements')">
         <a ui-sref="nstp.form.elements">
           <span translate="aside.nav.components.form.FORM_ELEMENTS">Form elements</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:form:validation')">
         <a ui-sref="nstp.form.validation">
           <span translate="aside.nav.components.form.FORM_VALIDATION">Form validation</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:form:wizard')">
         <a ui-sref="nstp.form.wizard">
           <span translate="aside.nav.components.form.FORM_WIZARD">Form wizard</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:form:fileupload')">
         <a ui-sref="nstp.form.fileupload">
           <span>File upload</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:form:imagecrop')">
         <a ui-sref="nstp.form.imagecrop">
           <span>Image crop</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:form:select')">
         <a ui-sref="nstp.form.select">
           <span>Select</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:form:slider')">
         <a ui-sref="nstp.form.slider">
           <span>Slider</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:form:editor')">
         <a ui-sref="nstp.form.editor">
           <span>Editor</span>
         </a>
       </li>
     </ul>
   </li>
-  <li ui-sref-active="active">
+  <li ui-sref-active="active" ng-show="hasPermission('nstp:chart')">
     <a ui-sref="nstp.chart">
       <i class="glyphicon glyphicon-signal"></i>
       <span translate="aside.nav.components.CHART">Chart</span>
     </a>
   </li>
-  <li ng-class="{active:$state.includes('app.page')}">
+  <li ng-class="{active:$state.includes('app.page')}" ng-show="hasPermission('nstp:page')">
     <a href class="auto">
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -306,27 +306,27 @@
           <span translate="aside.nav.components.pages.PAGES">Pages</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:page:profile')">
         <a ui-sref="nstp.page.profile">
           <span translate="aside.nav.components.pages.PROFILE">Profile</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:page:post')">
         <a ui-sref="nstp.page.post">
           <span translate="aside.nav.components.pages.POST">Post</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:page:search')">
         <a ui-sref="nstp.page.search">
           <span translate="aside.nav.components.pages.SEARCH">Search</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:page:invoice')">
         <a ui-sref="nstp.page.invoice">
           <span translate="aside.nav.components.pages.INVOICE">Invoice</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:page:price')">
         <a ui-sref="nstp.page.price">
           <span>Price</span>
         </a>
@@ -359,20 +359,20 @@
     </ul>
   </li>
 
-  <li class="line dk hidden-folded"></li>
+  <li class="line dk hidden-folded" ng-show="hasPermission('nstp:components')"></li>
 
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">          
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-show="hasPermission('nstp:your_stuff')">       
     <span translate="aside.nav.your_stuff.YOUR_STUFF">Your Stuff</span>
   </li>  
   <li>
-    <a ui-sref="nstp.page.profile">
+    <a ui-sref="nstp.page.profile" ng-show="hasPermission('nstp:your_stuff:PROFILE')"
       <i class="icon-user icon text-success-lter"></i>
       <b class="badge bg-success pull-right">30%</b>
       <span translate="aside.nav.your_stuff.PROFILE">Profile</span>
     </a>
   </li>
   <li>
-    <a ui-sref="nstp.docs">
+    <a ui-sref="nstp.docs" ng-show="hasPermission('nstp:your_stuff:DOCUMENTS')"
       <i class="icon-question icon"></i>
       <span translate="aside.nav.your_stuff.DOCUMENTS">Documents</span>
     </a>
