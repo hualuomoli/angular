@@ -5,7 +5,8 @@
 		.module('assets', [
 			'assets.device',
 			'ui.load',
-			'data.load'
+			'data.load',
+			'http.load'
 		])
 
 })();
