@@ -1,7 +1,9 @@
+/npm-debug.log
 /node_modules
 /bower_components
 /mochawesome-reports
+/.gulp-scss-cache
+/.sass-cache
 /uploads
 /logs
 /dist
-/mstp_111_angulr

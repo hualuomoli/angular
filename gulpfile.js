@@ -22,6 +22,10 @@ var ngAnnotate = require('gulp-ng-annotate');
 // JS压缩
 var uglify = require('gulp-uglify');
 
+// scss编译
+var scss = require('gulp-scss');
+// 浏览器前缀
+var autoprefixer = require('gulp-autoprefixer');
 // CSS压缩
 var cleanCSS = require('gulp-clean-css');
 
@@ -42,12 +46,19 @@ var options = {
   publish: false // 是否是发布模式
 }
 
+// 浏览器前缀配置
+var autoprefixerConfig = {
+  browsers: ['last 2 versions', '>5%'],
+  cascade: false,
+  remove: false
+}
+
 options = build.put(options, minimist(process.argv.slice(2)));
 
 console.log(options);
 
 // clean
-gulp.task('clean', function() {
+gulp.task('clean', function () {
   return gulp.src(options.dist, {
       read: false
     })
@@ -57,7 +68,7 @@ gulp.task('clean', function() {
 });
 
 // assets
-gulp.task('js:assets', function() {
+gulp.task('js:assets', function () {
   return gulp.src([
       './public/assets/**/*.module.js', // module
       './public/assets/**/*.provider.js', // provider
@@ -74,7 +85,7 @@ gulp.task('js:assets', function() {
     // 哈希
     .pipe(gulpif(options.publish, rev()))
     // 记录文件信息
-    .pipe(rename(function(path) {
+    .pipe(rename(function (path) {
       build.add(path);
     }))
     // angular注解
@@ -90,7 +101,7 @@ gulp.task('js:assets', function() {
 })
 
 // app
-gulp.task('js:app', function() {
+gulp.task('js:app', function () {
   var ignore;
   if (options.network) {
     ignore = '!./public/app/app.lazyload.config.js';
@@ -116,7 +127,7 @@ gulp.task('js:app', function() {
     // 哈希
     .pipe(gulpif(options.publish, rev()))
     // 记录文件信息
-    .pipe(rename(function(path) {
+    .pipe(rename(function (path) {
       build.add(path);
     }))
     // angular注解
@@ -132,7 +143,7 @@ gulp.task('js:app', function() {
 })
 
 // app 懒加载
-gulp.task('js:app:lazy', function() {
+gulp.task('js:app:lazy', function () {
   return gulp.src([
       './public/app/**/*.service.js', // service
       './public/app/**/*.controller.js' // controller
@@ -155,20 +166,44 @@ gulp.task('js:app:lazy', function() {
 })
 
 // fonts
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
   return gulp.src(['./public/**/fonts/**/*'], {
       base: './public'
     })
     .pipe(gulp.dest(options.dist));
 })
 
+// scss
+gulp.task('scss', function () {
+  return gulp.src(['./public/**/scss/*.scss'], {
+      base: './public'
+    })
+    // sourcemaps开始
+    .pipe(sourcemaps.init())
+    // scss编译
+    .pipe(scss())
+    // 输出到css目录下
+    .pipe(rename(function (path) {
+      path.dirname += '/../css';
+    }))
+    // 添加浏览器前缀
+    .pipe(autoprefixer(autoprefixerConfig))
+    // 压缩
+    .pipe(gulpif(options.min, cleanCSS()))
+    // sourcemaps结束
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(options.dist));
+})
+
 // css
-gulp.task('css', ['fonts'], function() {
+gulp.task('css', function () {
   return gulp.src(['./public/**/css/**/*'], {
       base: './public'
     })
     // sourcemaps开始
     .pipe(sourcemaps.init())
+    // 添加浏览器前缀
+    .pipe(autoprefixer(autoprefixerConfig))
     // 压缩
     .pipe(gulpif(options.min, cleanCSS()))
     // sourcemaps结束
@@ -177,7 +212,7 @@ gulp.task('css', ['fonts'], function() {
 })
 
 // image
-gulp.task('image', function() {
+gulp.task('image', function () {
   return gulp.src([
       './public/**/image/**/*',
       './public/**/img/**/*'
@@ -188,7 +223,7 @@ gulp.task('image', function() {
 });
 
 // tpl
-gulp.task('tpl', function() {
+gulp.task('tpl', function () {
   return gulp.src([
       './public/index.html',
       './public/**/tpl/**/*'
@@ -199,12 +234,12 @@ gulp.task('tpl', function() {
 });
 
 // start
-gulp.task('start', ['js:assets', 'js:app', 'js:app:lazy', 'fonts', 'css', 'image', 'tpl'], function(cb) {
+gulp.task('start', ['js:assets', 'js:app', 'js:app:lazy', 'fonts', 'scss', 'css', 'image', 'tpl'], function (cb) {
   return cb();
 })
 
 // index -- 替换
-gulp.task('index', ['start'], function() {
+gulp.task('index', ['start'], function () {
 
   var jsAppArray = build.files;
 
@@ -253,7 +288,7 @@ gulp.task('index', ['start'], function() {
 })
 
 // watch
-gulp.task('watch', ['start'], function() {
+gulp.task('watch', ['start'], function () {
 
   // 浏览器调试工具
   browserSync.init({
@@ -275,7 +310,7 @@ gulp.task('watch', ['start'], function() {
 })
 
 // 默认任务
-gulp.task('default', ['clean'], function() {
+gulp.task('default', ['clean'], function () {
   if (options.publish) {
     gulp.start('index');
   } else {
