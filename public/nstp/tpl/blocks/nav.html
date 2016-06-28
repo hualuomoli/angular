@@ -178,6 +178,11 @@
           <span>Toaster</span>
         </a>
       </li>
+      <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:tree')">
+        <a ui-sref="nstp.ui.tree">
+          <span>Tree</span>
+        </a>
+      </li>
       <li ui-sref-active="active" ng-show="hasPermission('nstp:ui:jvectormap')">
         <a ui-sref="nstp.ui.jvectormap">
           <span translate="aside.nav.components.ui_kits.VECTOR_MAP">Vector Map</span>
