@@ -73,7 +73,8 @@ gulp.task('coffee', function () {
 gulp.task('scss', function () {
   return gulp.src([
       './src/**/*.scss',
-      './src/**/*.sass'
+      './src/**/*.sass',
+      './src/**/*.css',
     ], {
       base: './src'
     })
