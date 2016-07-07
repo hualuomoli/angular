@@ -23,38 +23,46 @@
   <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
   <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
   <script src="../bower_components/angular-touch/angular-touch.min.js"></script>
-  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
   <!-- app -->
   <script type="text/javascript" src="../bower_components/angular-assets/dist/js/hm.js"></script>
+
+  <!-- ================================================== -->
+  <!-- build:js -->
   <script type="text/javascript" src="../bower_components/coffee-script/extras/coffee-script.js"></script>
 
+  <!-- 启动前配置 -->
+  <script type="text/coffeescript" src="./coffee/boot/boot.config.coffee"></script>
 
+  <!-- 主题 -->
+  <script type="text/coffeescript" src="./coffee/themes/theme.module.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/themes/theme.provider.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/themes/test/test.module.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/themes/test/test.router.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/themes/nstp/nstp.module.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/themes/nstp/nstp.router.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/themes/nstp/nstp.service.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/themes/nstp/nstp.controller.coffee"></script>
+
+  <!-- app -->
   <script type="text/coffeescript" src="./coffee/app.module.coffee"></script>
   <script type="text/coffeescript" src="./coffee/app.config.coffee"></script>
   <script type="text/coffeescript" src="./coffee/app.router.coffee"></script>
   <script type="text/coffeescript" src="./coffee/app.lazyload.coffee"></script>
-  <script type="text/coffeescript" src="./coffee/themes/nstp/nstp.module.coffee"></script>
-  <script type="text/coffeescript" src="./coffee/themes/nstp/nstp.router.coffee"></script>
-  <script type="text/coffeescript" src="./coffee/themes/nstp/nstp.controller.coffee"></script>
+  
+  <!-- 项目功能 -->
   <script type="text/coffeescript" src="./coffee/demo/demo.module.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/demo/demo.router.coffee"></script>
   <script type="text/coffeescript" src="./coffee/demo/dashboard/dashboard.module.coffee"></script>
   <script type="text/coffeescript" src="./coffee/demo/dashboard/dashboard.router.coffee"></script>
 
-  <!-- <script src="./coffee/themes/nstp/directives/setnganimate.js"></script>
-  <script src="./coffee/themes/nstp/directives/ui-butterbar.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-focus.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-fullscreen.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-jq.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-module.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-nav.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-scroll.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-shift.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-toggleclass.js"></script>
-   <script src="./coffee/themes/nstp/directives/ui-validate.js"></script> -->
+  <!-- 指令 -->
+  <script type="text/coffeescript" src="./coffee/themes/nstp/directives/ui-nav.coffee"></script>
 
   <!-- start -->
-  <script type="text/coffeescript" src="./coffee/app.bootstrap.coffee"></script>
+  <script type="text/coffeescript" src="./coffee/boot/boot.start.coffee"></script>
+  <!-- endbuild -->
 
 </body>
 </html>

@@ -1,9 +1,9 @@
 angular.module 'demo.dashboard'
-.config ['$stateProvider', ($stateProvider)->
+.config ['themeProvider', (themeProvider)->
 
   # 路由配置
-  $stateProvider
-    .state('nstp.dashboard', {
+  themeProvider
+    .state('demo.dashboard', {
       url: '/dashboard',
       template: 'this is demo a dashboard file'
     })

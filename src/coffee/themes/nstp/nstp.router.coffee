@@ -12,10 +12,7 @@ angular.module 'nstp'
       controller: 'nstpCtrl',
       resolve: {
         deps: ['$ocLazyLoad', ($ocLazyLoad)->
-          return $ocLazyLoad.load([
-            'nstp/css/animate.css',
-            'nstp/css/app.css'
-          ])
+          return $ocLazyLoad.load(['nstp'])
         ]
       }
     })

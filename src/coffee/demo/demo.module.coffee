@@ -5,5 +5,7 @@ angular.module 'demo', [
   'ui.router',
   'oc.lazyLoad',
 
+  'theme',
+
   'demo.dashboard'
 ]

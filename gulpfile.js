@@ -22,6 +22,9 @@ var autoprefixer = require('gulp-autoprefixer');
 // CSS压缩
 var cleanCSS = require('gulp-clean-css');
 
+// html
+var htmlreplace = require('gulp-html-replace');
+
 // clean
 gulp.task('clean', function () {
   return gulp.src('./dist', {
@@ -32,19 +35,26 @@ gulp.task('clean', function () {
 // coffee
 gulp.task('coffee', function () {
   return gulp.src([
-      './src/**/*.module.coffee', // module
-      './src/**/*.provider.coffee', // provider
-      './src/**/*.factory.coffee', // factory
-      './src/**/*.service.coffee' // service
+      './src/coffee/boot/*.coffee', // boot
+
+      './src/coffee/**/*.module.coffee', // module
+      './src/coffee/**/*.provider.coffee', // provider
+      './src/coffee/**/*.factory.coffee', // factory
+      './src/coffee/**/*.config.coffee', // config
+      './src/coffee/**/*.router.coffee', // router
+      './src/coffee/**/directives/*.coffee', // directives
+
+      './src/coffee/**/*.service.coffee', // service
+      './src/coffee/**/*.controller.coffee'
     ])
     // coffee
     .pipe(coffee({
       bare: true
     }).on('error', gutil.log))
     // 合并成一个文件
-    .pipe(concat('hm.js'))
+    .pipe(concat('app.js'))
     // 输出源码文件
-    .pipe(gulp.dest('./dist/js'))
+    .pipe(gulp.dest('./dist'))
     // 压缩前修改文件名,增加.min
     .pipe(rename(function (path) {
       path.basename += '.min';
@@ -56,7 +66,7 @@ gulp.task('coffee', function () {
     // sourcemaps结束
     .pipe(sourcemaps.write('.'))
     // 输出压缩文件
-    .pipe(gulp.dest('./dist/js'));
+    .pipe(gulp.dest('./dist'));
 })
 
 // sass
@@ -64,7 +74,9 @@ gulp.task('scss', function () {
   return gulp.src([
       './src/**/*.scss',
       './src/**/*.sass'
-    ])
+    ], {
+      base: './src'
+    })
     // sass编译
     .pipe(sass({
       outputStyle: 'expanded'
@@ -75,10 +87,12 @@ gulp.task('scss', function () {
       cascade: false,
       remove: false
     }))
-    // 合并成一个文件
-    .pipe(concat('hm.css'))
+    // 修改输出目录
+    .pipe(rename(function (path) {
+      path.dirname = path.dirname + '/../css';
+    }))
     // 输出源码文件
-    .pipe(gulp.dest('./dist/css'))
+    .pipe(gulp.dest('./dist'))
     // 压缩前修改文件名,增加.min
     .pipe(rename(function (path) {
       path.basename += '.min';
@@ -90,11 +104,53 @@ gulp.task('scss', function () {
     // sourcemaps结束
     .pipe(sourcemaps.write('.'))
     // 输出压缩文件
-    .pipe(gulp.dest('./dist/css'));
+    .pipe(gulp.dest('./dist'));
+})
+
+// img
+gulp.task('img', function () {
+  return gulp.src([
+      './src/**/img/**/*'
+    ], {
+      base: './src'
+    })
+    .pipe(gulp.dest('./dist'))
+})
+
+// tpl
+gulp.task('tpl', function () {
+  return gulp.src([
+      '!./src/index.html',
+      './src/**/*.html'
+    ], {
+      base: './src'
+    })
+    .pipe(gulp.dest('./dist'))
+})
+
+// index
+gulp.task('index', function () {
+  return gulp.src([
+      './src/index.html'
+    ])
+    .pipe(htmlreplace({
+      'js': './app.js'
+    }))
+    .pipe(gulp.dest('./dist'))
+})
+
+// test json
+gulp.task('test', function () {
+  return gulp.src([
+      './src/test/*.json'
+    ], {
+      base: './src'
+    })
+    .pipe(gulp.dest('./dist'))
 })
 
 // 开始
-gulp.task('start', ['coffee', 'scss'], function (cb) {
+gulp.task('start', ['coffee', 'scss', 'img', 'tpl', 'index', 'test'], function (cb) {
   return cb();
 })
 

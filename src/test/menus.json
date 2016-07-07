@@ -1,0 +1,209 @@
+[{
+  "code": "1",
+  "name": "Navigation",
+  "sort": 1
+}, {
+  "code": "01",
+  "name": "Dashboard",
+  "pCode": "1",
+  "sort": 1
+}, {
+  "code": "0101",
+  "name": "Dashboard V1",
+  "pCode": "01",
+  "sort": 1
+}, {
+  "code": "0102",
+  "name": "Dashboard V2",
+  "pCode": "01",
+  "sort": 2
+}, {
+  "code": "02",
+  "name": "Calendar",
+  "pCode": "1",
+  "sort": 2
+}, {
+  "code": "03",
+  "name": "Email",
+  "pCode": "1",
+  "sort": 3
+}, {
+  "code": "04",
+  "name": "Apps",
+  "pCode": "1",
+  "sort": 4
+}, {
+  "code": "0401",
+  "name": "Note",
+  "pCode": "04",
+  "sort": 1
+}, {
+  "code": "0402",
+  "name": "Contacts",
+  "pCode": "04",
+  "sort": 2
+}, {
+  "code": "0403",
+  "name": "Weather",
+  "pCode": "04",
+  "sort": 3
+}, {
+  "code": "2",
+  "name": "Components",
+  "sort": 2
+}, {
+  "code": "05",
+  "name": "Layout",
+  "pCode": "2",
+  "sort": 5
+}, {
+  "code": "0501",
+  "name": "Application",
+  "pCode": "05",
+  "sort": 1
+}, {
+  "code": "0502",
+  "name": "Full Width",
+  "pCode": "05",
+  "sort": 2
+}, {
+  "code": "0503",
+  "name": "Mobile",
+  "pCode": "05",
+  "sort": 3
+}, {
+  "code": "06",
+  "name": "Ui Kits",
+  "pCode": "2",
+  "sort": 6
+}, {
+  "code": "0601",
+  "name": "Buttons",
+  "pCode": "06",
+  "sort": 1
+}, {
+  "code": "0602",
+  "name": "Icons",
+  "pCode": "06",
+  "sort": 2
+}, {
+  "code": "0603",
+  "name": "Grid",
+  "pCode": "06",
+  "sort": 3
+}, {
+  "code": "0604",
+  "name": "Widgets",
+  "pCode": "06",
+  "sort": 4
+}, {
+  "code": "0605",
+  "name": "Bootstrap",
+  "pCode": "06",
+  "sort": 5
+}, {
+  "code": "0606",
+  "name": "Sortable",
+  "pCode": "06",
+  "sort": 6
+}, {
+  "code": "0607",
+  "name": "Portlet",
+  "pCode": "06",
+  "sort": 7
+}, {
+  "code": "0608",
+  "name": "Timeline",
+  "pCode": "06",
+  "sort": 8
+}, {
+  "code": "0609",
+  "name": "Tree",
+  "pCode": "06",
+  "sort": 9
+}, {
+  "code": "0610",
+  "name": "Toaster",
+  "pCode": "06",
+  "sort": 10
+}, {
+  "code": "0611",
+  "name": "Vector Map",
+  "pCode": "06",
+  "sort": 11
+}, {
+  "code": "0612",
+  "name": "Google Map",
+  "pCode": "06",
+  "sort": 12
+}, {
+  "code": "07",
+  "name": "Table",
+  "pCode": "2",
+  "sort": 7
+}, {
+  "code": "0701",
+  "name": "Table static",
+  "pCode": "07",
+  "sort": 1
+}, {
+  "code": "0702",
+  "name": "Datatable",
+  "pCode": "07",
+  "sort": 3
+}, {
+  "code": "0703",
+  "name": "Footable",
+  "pCode": "07",
+  "sort": 3
+}, {
+  "code": "0704",
+  "name": "ngGrid",
+  "pCode": "07",
+  "sort": 4
+}, {
+  "code": "08",
+  "name": "Form",
+  "pCode": "2",
+  "sort": 8
+}, {
+  "code": "0801",
+  "name": "Form elements",
+  "pCode": "08",
+  "sort": 1
+}, {
+  "code": "0802",
+  "name": "Form validation",
+  "pCode": "08",
+  "sort": 2
+}, {
+  "code": "0803",
+  "name": "Form wizard",
+  "pCode": "08",
+  "sort": 3
+}, {
+  "code": "0804",
+  "name": "File upload",
+  "pCode": "08",
+  "sort": 4
+}, {
+  "code": "0805",
+  "name": "Image crop",
+  "pCode": "08",
+  "sort": 5
+}, {
+  "code": "0806",
+  "name": "Select",
+  "pCode": "08",
+  "sort": 6
+}, {
+  "code": "0807",
+  "name": "Slider",
+  "pCode": "08",
+  "sort": 7
+}, {
+  "code": "0808",
+  "name": "Editor",
+  "pCode": "08",
+  "sort": 8
+}]

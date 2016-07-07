@@ -6,7 +6,15 @@ angular.module 'app', [
   'oc.lazyLoad',
 
   'hm',
-  # project
+
+  # 启动配置
+  'boot',
+
+  # 主题
+  'theme',
+  'test',
   'nstp',
+
+  # 项目
   'demo'
 ]

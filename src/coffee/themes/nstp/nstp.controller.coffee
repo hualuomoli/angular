@@ -1,5 +1,5 @@
 angular.module 'nstp'
-.controller 'nstpCtrl', ['$rootScope', '$scope', '$localStorage', '$window', ($rootScope, $scope, $localStorage, $window)->
+.controller 'nstpCtrl', ['$rootScope', '$scope', '$localStorage', 'hmCollection', 'nstpService', '$window', ($rootScope, $scope, $localStorage, hmCollection, nstpService, $window)->
 
   # setting
   $scope.app = {
@@ -28,5 +28,21 @@ angular.module 'nstp'
       container: false
     }
   }
+
+  # 菜单列表
+  $scope.menus = {}
+  # 菜单树
+  $scope.menuTree = {}
+  $scope.selected = undefined
+
+  $scope.show = ()->
+    console.log(arguments)
+
+
+  # 页面加载完成后,加载菜单
+  $scope.$watch '$viewContentLoaded', ()->
+    nstpService.loadMenus().success (menus)->
+      $scope.menus = menus
+      $scope.menuTree = hmCollection.parse2Tree(menus, {"code":"code","pcode": "pCode","label":"name"})
 
 ]
