@@ -9,6 +9,14 @@ angular.module 'boot', [
 .constant 'JQ_ASSETS_LIB', {
   easyPieChart: [
     '../bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js'
+  ],
+  sparkline: [
+    'http://cdn.bootcss.com/jquery-sparklines/2.1.2/jquery.sparkline.min.js'
+  ],
+  plot: [
+    'http://cdn.bootcss.com/flot/0.8.3/jquery.flot.min.js',
+    'http://cdn.bootcss.com/flot/0.8.3/jquery.flot.resize.min.js',
+    'http://cdn.bootcss.com/flot/0.8.3/jquery.flot.pie.min.js',
   ]
 }
 

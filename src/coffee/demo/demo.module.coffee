@@ -8,4 +8,6 @@ angular.module 'demo', [
   'theme',
 
   'demo.dashboard'
+  'demo.layout'
+  
 ]

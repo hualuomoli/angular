@@ -10,6 +10,7 @@ angular.module 'nstp'
       url: '/nstp',
       templateUrl: 'nstp/tpl/app.html',
       controller: 'nstpCtrl',
+      # controllerAs: 'vm',
       resolve: {
         deps: ['$ocLazyLoad', ($ocLazyLoad)->
           return $ocLazyLoad.load(['nstp'])

@@ -16,5 +16,6 @@ angular.module 'app', [
   'nstp',
 
   # 项目
-  'demo'
+  'demo',
+  'tester'
 ]

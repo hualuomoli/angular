@@ -1,5 +1,5 @@
 angular.module 'nstp'
-.controller 'nstpCtrl', ['$rootScope', '$scope', '$localStorage', 'hmCollection', 'nstpService', '$window', ($rootScope, $scope, $localStorage, hmCollection, nstpService, $window)->
+.controller 'nstpCtrl', ['$rootScope', '$scope', '$state', '$localStorage', 'hmCollection', 'nstpService', '$window', ($rootScope, $scope, $state, $localStorage, hmCollection, nstpService, $window)->
 
   # setting
   $scope.app = {
@@ -30,10 +30,27 @@ angular.module 'nstp'
   }
 
   # 菜单列表
-  $scope.menus = {}
+  $scope.menus = []
   # 菜单树
-  $scope.menuTree = {}
+  $scope.menuTree = []
+  # 选中的项目
+  $scope.projectMenuTree = {}
   $scope.selected = undefined
+
+  $scope.goMenu = (menu)->
+
+    # 修改项目的菜单
+    if menu.pcode != $scope.projectMenuTree.code
+      for tree, index in $scope.menuTree
+        if menu.pcode == tree.code 
+          $scope.projectMenuTree = tree
+
+    # 切换当前状态
+    if !menu.children || menu.children.length ==0
+      $state.go 'nstp.' + menu.state
+    else
+      $state.go 'nstp.' + menu.children[0].state
+
 
   $scope.show = ()->
     console.log(arguments)
@@ -43,6 +60,14 @@ angular.module 'nstp'
   $scope.$watch '$viewContentLoaded', ()->
     nstpService.loadMenus().success (menus)->
       $scope.menus = menus
-      $scope.menuTree = hmCollection.parse2Tree(menus, {"code":"code","pcode": "pCode","label":"name"})
+      $scope.menuTree = hmCollection.parse2Tree menus, {
+        "code":"code",
+        "pcode": "pCode",
+        "label":"name",
+        "sort": "orders"
+        # "sorts": (d1, d2)->
+        #   return d1.sort >= d2.sort
+      }
+      $scope.projectMenuTree = $scope.menuTree[0]
 
 ]

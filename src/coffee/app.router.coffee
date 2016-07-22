@@ -6,7 +6,7 @@ angular.module 'app'
 
   # 默认路由
   # $urlRouterProvider.otherwise('/app/demo/dashboard');
-  $urlRouterProvider.otherwise('/nstp/demo/dashboard');
+  $urlRouterProvider.otherwise('/nstp/demo/dashboard/v1');
 
   # 路由配置
   $stateProvider

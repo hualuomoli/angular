@@ -4,8 +4,9 @@ angular.module 'demo.dashboard'
   # 路由配置
   themeProvider
     .state('demo.dashboard', {
+      abstract: true,
       url: '/dashboard',
-      template: 'this is demo a dashboard file'
+      template: '<div ui-view fadeInRight></div>',
     })
 
 
