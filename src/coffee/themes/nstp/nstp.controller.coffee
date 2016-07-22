@@ -1,5 +1,5 @@
 angular.module 'nstp'
-.controller 'nstpCtrl', ['$rootScope', '$scope', '$state', '$localStorage', 'hmCollection', 'nstpService', '$window', ($rootScope, $scope, $state, $localStorage, hmCollection, nstpService, $window)->
+.controller 'nstpCtrl', ['$rootScope', '$scope', '$state', '$localStorage', 'hmUtils', 'nstpService', '$window', ($rootScope, $scope, $state, $localStorage, hmUtils, nstpService, $window)->
 
   # setting
   $scope.app = {
@@ -29,45 +29,56 @@ angular.module 'nstp'
     }
   }
 
-  # 菜单列表
-  $scope.menus = []
-  # 菜单树
-  $scope.menuTree = []
-  # 选中的项目
-  $scope.projectMenuTree = {}
+  treeMenus = []
+
+  # aside --> 菜单列表
+  $scope.asideMenus = {}
+  # header --> 项目菜单
+  $scope.projectMenus = []
+  # 查询菜单
+  $scope.searchMenus = []
   $scope.selected = undefined
 
-  $scope.goMenu = (menu)->
+  # 跳转菜单
+  goMenu = (menu)->
 
     # 修改项目的菜单
-    if menu.pcode != $scope.projectMenuTree.code
-      for tree, index in $scope.menuTree
-        if menu.pcode == tree.code 
-          $scope.projectMenuTree = tree
+    if menu.pCode != $scope.asideMenus.code
+      for tree, index in treeMenus
+        if menu.pCode == tree.code 
+          $scope.asideMenus = tree
 
     # 切换当前状态
-    if !menu.children || menu.children.length ==0
+    if !menu.children || menu.children.length == 0
       $state.go 'nstp.' + menu.state
     else
       $state.go 'nstp.' + menu.children[0].state
 
+  # 项目选择菜单
+  $scope.goMenu = goMenu
 
-  $scope.show = ()->
-    console.log(arguments)
+  # 搜索菜单
+  $scope.show = (menu)->
+    return goMenu menu
+     
 
 
   # 页面加载完成后,加载菜单
   $scope.$watch '$viewContentLoaded', ()->
     nstpService.loadMenus().success (menus)->
-      $scope.menus = menus
-      $scope.menuTree = hmCollection.parse2Tree menus, {
+      # 转换成数
+      treeMenus = hmUtils.tree.parse menus, {
         "code":"code",
         "pcode": "pCode",
-        "label":"name",
         "sort": "orders"
         # "sorts": (d1, d2)->
         #   return d1.sort >= d2.sort
       }
-      $scope.projectMenuTree = $scope.menuTree[0]
+      # 项目菜单
+      $scope.projectMenus = treeMenus
+      # 左侧菜单,显示第一个项目
+      $scope.asideMenus = treeMenus[0] if treeMenus.length >0
+      # 查询菜单
+      $scope.searchMenus = hmUtils.tree.leaf treeMenus
 
 ]

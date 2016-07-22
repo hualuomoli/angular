@@ -198,25 +198,25 @@
   "name": "测试项目",
   "orders": 1
 }, {
-  "code": "02",
+  "code": "22",
   "name": "基础数据",
   "pCode": "2",
   "orders": 10,
   "icon": "glyphicon glyphicon-stats text-primary-dker"
 }, {
-  "code": "0201",
+  "code": "2201",
   "name": "角色管理",
-  "pCode": "02",
+  "pCode": "22",
   "orders": 10,
   "state": "tester.basic.role"
 }, {
-  "code": "0202",
+  "code": "2202",
   "name": "菜单管理",
-  "pCode": "02",
+  "pCode": "22",
   "orders": 20,
   "state": "tester.basic.menu"
 }, {
-  "code": "03",
+  "code": "23",
   "name": "查询",
   "pCode": "2",
   "orders": 20,

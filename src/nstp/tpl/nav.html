@@ -1,29 +1,29 @@
 <!-- list -->
 <ul class="nav">
   <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-    <span>{{projectMenuTree.label}}</span>
+    <span>{{asideMenus.name}}</span>
   </li>
 
   <!-- 菜单 -->
   <!-- 非叶子节点 -->
-  <li ng-repeat="menu in projectMenuTree.children" ui-sref-active="{active: menu.leaf == 'Y'}">
+  <li ng-repeat="menu in asideMenus.children" ui-sref-active="{active: menu.leaf == 'Y'}">
     <a href class="auto" ng-show="menu.leaf == 'N'" >      
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
         <i class="fa fa-fw fa-angle-down text-active"></i>
       </span>
       <i class="icon {{menu.icon}}"></i>
-      <span class="font-bold">{{menu.label}}</span>
+      <span class="font-bold">{{menu.name}}</span>
     </a>
     <ul class="nav nav-sub dk"  ng-show="menu.leaf == 'N'" >
       <li class="nav-sub-header">
         <a href>
-          <span>{{menu.label}}</span>
+          <span>{{menu.name}}</span>
         </a>
       </li>
       <li ui-sref-active="active" ng-repeat="subMenu in menu.children">
         <a ui-sref="nstp.{{subMenu.state}}">
-          <span>{{subMenu.label}}</span>
+          <span>{{subMenu.name}}</span>
         </a>
       </li>
     </ul>
@@ -31,7 +31,7 @@
     <!-- 叶子节点 -->
     <a ui-sref="app.calendar"  ng-show="menu.leaf == 'Y'" >
       <i class="icon {{menu.icon}}"></i>
-      <span class="font-bold" translate="aside.nav.CALENDAR">{{menu.label}}</span>
+      <span class="font-bold" translate="aside.nav.CALENDAR">{{menu.name}}</span>
     </a>
   </li>
   <!-- ./叶子节点 -->
